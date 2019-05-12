@@ -1,8 +1,20 @@
 # forum-front-end
 
+## Create Project
+
+```sh
+$ npm install -g @vue/cli
+$ vue --version
+$ vue create forum-frond-end
+```
+
 ## Project setup
 ```
-npm install
+$ cd forum-frond-end
+$ npm install
+$ npm install -D sass-loader sass
+$ vue add router
+$ vue add vuex
 ```
 
 ### Compiles and hot-reloads for development

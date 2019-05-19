@@ -1,43 +1,44 @@
 <template>
   <ul class="nav nav-tabs">
-    <li class="nav-item">
-      <a class="nav-link active" href="#">首頁</a>
-    </li>
-    <li class="nav-item">
-      <a class="nav-link" href="/restaurants/feeds">最新動態</a>
-    </li>
-    <li class="nav-item">
-      <a class="nav-link" href="/restaurants/top">TOP10 人氣餐廳</a>
-    </li>
-    <li class="nav-item">
-      <a class="nav-link" href="/users/top">美食達人</a>
+    <li v-for="tab in tabs" :key="tab.id" class="nav-item">
+      <router-link :to="tab.path" class="nav-link">{{ tab.title }}</router-link>
     </li>
   </ul>
 </template>
 
 <script>
+import uuid from 'uuid/v4'
 export default {
   name: 'NavTabs',
-  props: {
-    msg: String
+  data() {
+    return {
+      tabs: [
+        {
+          id: uuid(),
+          title: '首頁',
+          path: '/restaurants'
+        },
+        {
+          id: uuid(),
+          title: '最新動態',
+          path: '/restaurants/feeds'
+        },
+        {
+          id: uuid(),
+          title: 'TOP 10 人氣餐廳',
+          path: '/restaurants/top'
+        },
+        {
+          id: uuid(),
+          title: '美食達人',
+          path: '/users/top'
+        }
+      ]
+    }
   }
 }
 </script>
 
-<!-- Add "scoped" attribute to limit CSS to this component only -->
+
 <style scoped>
-h3 {
-  margin: 40px 0 0;
-}
-ul {
-  list-style-type: none;
-  padding: 0;
-}
-li {
-  display: inline-block;
-  margin: 0 10px;
-}
-a {
-  color: #42b983;
-}
 </style>

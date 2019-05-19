@@ -23,6 +23,12 @@
     <main role="main">
       <div class="album py-5 bg-light">
         <div class="container">
+          <div class="alert alert-success alert-dismissible fade show" role="alert">
+            With Bootstrap!
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
           <!--
           {{#if success_messages}}
             <div class="alert alert-success" role="alert" style="margin: 30px 0 ;">

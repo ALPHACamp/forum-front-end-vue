@@ -50,4 +50,9 @@ $ ./deploy.sh
 ```
 
 ### Customize configuration
+
 See [Configuration Reference](https://cli.vuejs.org/config/).
+
+## Reference
+
+- [Adding Bootstrap to a Vue CLI Project](https://travishorn.com/adding-bootstrap-to-a-vue-cli-project-98c2a30e0ed0)

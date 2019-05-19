@@ -5,6 +5,8 @@
 - [ ] Finish router and empty components
 - [ ] Login Authentication
 - [ ] Notification and Alert
+- [ ] 重新檢核語法是否都依據 [style guide](https://cn.vuejs.org/v2/style-guide/index.html) 的建議撰寫
+- [ ] 重新檢視專案架構能否添加 [vue cookbook](https://vuejs.org/v2/cookbook/) 中提供的方法
 
 ## Create Project with vue-cli
 

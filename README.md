@@ -1,6 +1,14 @@
 # forum-front-end
 
-## Create Project
+## TODO
+
+- [ ] Finish router and empty components
+- [ ] Login Authentication
+- [ ] Notification and Alert
+
+## Create Project with vue-cli
+
+### Install vue-cli
 
 ```sh
 $ npm install -g @vue/cli
@@ -8,17 +16,17 @@ $ vue --version
 $ vue create forum-frond-end
 ```
 
-## Project setup
+### Install SASS and vue-router
 
 ```
 $ cd forum-frond-end
 $ npm install
 $ npm install -D sass-loader sass
 $ vue add router
-$ vue add vuex
+$ vue add vuex    # options
 ```
 
-### Compiles and hot-reloads for development
+## Development
 
 ```
 npm run serve
@@ -28,12 +36,6 @@ npm run serve
 
 ```
 npm run build
-```
-
-### Run your tests
-
-```
-npm run test
 ```
 
 ### Lints and fixes files
@@ -56,3 +58,4 @@ See [Configuration Reference](https://cli.vuejs.org/config/).
 ## Reference
 
 - [Adding Bootstrap to a Vue CLI Project](https://travishorn.com/adding-bootstrap-to-a-vue-cli-project-98c2a30e0ed0)
+- [Vue API calls in a smart way](https://medium.com/canariasjs/vue-api-calls-in-a-smart-way-8d521812c322)

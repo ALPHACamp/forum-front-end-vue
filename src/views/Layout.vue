@@ -5,16 +5,12 @@
       <div class="navbar-collapse offcanvas-collapse" id="navbarsExampleDefault">
         <ul class="navbar-nav mr-auto"></ul>
         <div>
-          <!--
-        {{#if user.isAdmin}}
+          <!-- is user is admin -->
           <a href="/admin" style="color: white;margin-right: 10px;">Admin 後台</a>
-        {{/if}}
-        {{#if user}}
+          <!-- is user is login -->
           <span style="color: white;margin-right: 10px;">Hi, {{user.email}}</span>
-          <a href="/users/{{user.id}}" style="color: white;margin-right: 10px;">Profile</a>
+          <a :href="`/users/${user.id}`" style="color: white;margin-right: 10px;">Profile</a>
           <a href="/logout"><button class="btn btn-outline-success my-2 my-sm-0">LogOut</button></a>
-        {{/if}}
-          -->
         </div>
       </div>
     </nav>
@@ -23,12 +19,6 @@
     <main role="main">
       <div class="album py-5 bg-light">
         <div class="container">
-          <div class="alert alert-success alert-dismissible fade show" role="alert">
-            With Bootstrap!
-            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-              <span aria-hidden="true">&times;</span>
-            </button>
-          </div>
           <!--
           {{#if success_messages}}
             <div class="alert alert-success" role="alert" style="margin: 30px 0 ;">
@@ -50,6 +40,14 @@
 
 <script>
 export default {
-
+  name: 'Layout',
+  data() {
+    return {
+      user: {
+        id: 1,
+        email: 'root@example.com'
+      }
+    }
+  }
 }
 </script>

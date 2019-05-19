@@ -1,6 +1,6 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import Home from './views/Home.vue'
+import Restaurants from './views/Restaurants.vue'
 import Layout from './views/Layout.vue'
 
 Vue.use(Router)
@@ -15,9 +15,9 @@ export default new Router({
       name: 'layout',
       children: [
         {
-          path: '/home',
-          name: 'home',
-          component: Home
+          path: '/restaurants',
+          name: 'restaurant',
+          component: Restaurants
         },
         {
           path: '/about',

@@ -1,5 +1,5 @@
 <template>
-  <ul class="nav nav-tabs">
+  <ul class="nav nav-tabs mb-4">
     <li v-for="tab in tabs" :key="tab.id" class="nav-item">
       <router-link :to="tab.path" class="nav-link">{{ tab.title }}</router-link>
     </li>

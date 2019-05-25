@@ -46,8 +46,8 @@ export default {
           throw new Error(statusText)
         }
 
-        this.restaurants = [...data.restaurants]
-        this.comments = [...data.comments]
+        this.restaurants = data.restaurants
+        this.comments = data.comments
       } catch (error) {
         Toast.fire({
           type: 'error',

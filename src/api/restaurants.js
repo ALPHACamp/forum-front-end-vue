@@ -7,5 +7,8 @@ export default {
   },
   getFeeds() {
     return apiHelper.get('/restaurants/feeds')
+  },
+  getTopRestaurants() {
+    return apiHelper.get('/restaurants/top')
   }
 }

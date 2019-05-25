@@ -29,14 +29,14 @@ export default new Router({
           component: () => import('./views/RestaurantsFeeds.vue')
         },
         {
-          path: '/restaurants/:id',
-          name: 'restaurants-show',
-          component: () => import('./views/RestaurantsShow.vue')
-        },
-        {
           path: '/restaurants/top',
           name: 'restaurants-tops',
           component: () => import('./views/RestaurantsTop.vue')
+        },
+        {
+          path: '/restaurants/:id',
+          name: 'restaurants-show',
+          component: () => import('./views/RestaurantsShow.vue')
         },
         {
           path: '/users/top',

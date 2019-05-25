@@ -49,7 +49,7 @@
 </template>
 
 <script>
-import userAPI from '@/api/users'
+import usersAPI from '@/api/users'
 import { Toast } from '@/utils/helpers'
 
 export default {
@@ -68,7 +68,7 @@ export default {
   methods: {
     async addFavorite(restaurantId) {
       try {
-        const { data, statusText } = await userAPI.addFavorite({ restaurantId })
+        const { data, statusText } = await usersAPI.addFavorite({ restaurantId })
 
         if (statusText !== 'OK' || data.status !== 'success') {
           throw new Error(statusText)
@@ -87,7 +87,7 @@ export default {
     },
     async removeFavorite(restaurantId) {
       try {
-        const { data, statusText } = await userAPI.removeFavorite({
+        const { data, statusText } = await usersAPI.removeFavorite({
           restaurantId
         })
 
@@ -108,7 +108,7 @@ export default {
     },
     async addLike(restaurantId) {
       try {
-        const { data, statusText } = await userAPI.addLike({ restaurantId })
+        const { data, statusText } = await usersAPI.addLike({ restaurantId })
 
         if (statusText !== 'OK' || data.status !== 'success') {
           throw new Error(statusText)
@@ -127,7 +127,7 @@ export default {
     },
     async removeLike(restaurantId) {
       try {
-        const { data, statusText } = await userAPI.removeLike({
+        const { data, statusText } = await usersAPI.removeLike({
           restaurantId
         })
 

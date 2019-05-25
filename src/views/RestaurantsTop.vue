@@ -48,8 +48,9 @@
 <script>
 import NavTabs from '@/components/NavTabs.vue'
 import restaurantsAPI from '@/api/restaurants'
-import userAPI from '@/api/users'
+import usersAPI from '@/api/users'
 import { Toast } from '@/utils/helpers'
+
 export default {
   name: 'RestaurantsTop',
   components: {
@@ -82,7 +83,7 @@ export default {
     },
     async addFavorite(restaurantId) {
       try {
-        const { data, statusText } = await userAPI.addFavorite({ restaurantId })
+        const { data, statusText } = await usersAPI.addFavorite({ restaurantId })
 
         if (statusText !== 'OK' || data.status !== 'success') {
           throw new Error(statusText)
@@ -107,7 +108,7 @@ export default {
     },
     async removeFavorite(restaurantId) {
       try {
-        const { data, statusText } = await userAPI.removeFavorite({
+        const { data, statusText } = await usersAPI.removeFavorite({
           restaurantId
         })
 

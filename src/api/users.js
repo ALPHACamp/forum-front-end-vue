@@ -1,6 +1,9 @@
 import { apiHelper } from '@/utils/helpers'
 
 export default {
+  getTopUsers() {
+    return apiHelper.get('/users/top')
+  },
   addFavorite({ restaurantId }) {
     return apiHelper.post(`/favorite/${restaurantId}`)
   },
@@ -12,5 +15,11 @@ export default {
   },
   removeLike({ restaurantId }) {
     return apiHelper.delete(`/like/${restaurantId}`)
+  },
+  addFollowing({ userId }) {
+    return apiHelper.post(`/following/${userId}`)
+  },
+  removeFollowing({ userId }) {
+    return apiHelper.delete(`/following/${userId}`)
   }
 }

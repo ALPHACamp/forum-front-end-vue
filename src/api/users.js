@@ -1,4 +1,4 @@
-import { apiHelper } from '@/api/helper'
+import { apiHelper } from '@/utils/helpers'
 
 export default {
   addFavorite({ restaurantId }) {

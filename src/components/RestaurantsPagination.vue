@@ -11,11 +11,15 @@
         </router-link>
       </li>
 
-      <li v-for="n in totalPage" :key="n" :class="['page-item', { active: currentPage === n }]">
+      <li
+        v-for="page in totalPage"
+        :key="page"
+        :class="['page-item', { active: currentPage === page }]"
+      >
         <router-link
           class="page-link"
-          :to="{name: 'restaurants', query: { categoryId, page: n }}"
-        >{{ n }}</router-link>
+          :to="{name: 'restaurants', query: { categoryId, page }}"
+        >{{ page }}</router-link>
       </li>
 
       <li class="page-item">

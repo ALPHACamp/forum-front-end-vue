@@ -10,7 +10,9 @@
           <!-- is user is login -->
           <span style="color: white;margin-right: 10px;">Hi, {{user.email}}</span>
           <a :href="`/users/${user.id}`" style="color: white;margin-right: 10px;">Profile</a>
-          <a href="/logout"><button class="btn btn-outline-success my-2 my-sm-0">LogOut</button></a>
+          <a href="/logout">
+            <button class="btn btn-outline-success my-2 my-sm-0">LogOut</button>
+          </a>
         </div>
       </div>
     </nav>
@@ -20,6 +22,7 @@
       <div class="album py-5 bg-light">
         <div class="container">
           <!--
+            TODO:
           {{#if success_messages}}
             <div class="alert alert-success" role="alert" style="margin: 30px 0 ;">
               {{success_messages}}
@@ -31,7 +34,7 @@
             </div>
           {{/if}}
           -->
-          <router-view />
+          <router-view/>
         </div>
       </div>
     </main>

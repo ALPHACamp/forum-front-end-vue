@@ -19,6 +19,7 @@ import NavTabs from '@/components/NavTabs.vue'
 import NewestRestaurants from '@/components/NewestRestaurants.vue'
 import NewestComments from '@/components/NewestComments.vue'
 import restaurantsAPI from '@/api/restaurants'
+import { Toast } from '@/utils/helpers'
 
 export default {
   name: 'RestaurantsFeeds',
@@ -30,9 +31,7 @@ export default {
   data() {
     return {
       restaurants: [],
-      comments: [],
-      isLoading: true,
-      hasError: false
+      comments: []
     }
   },
   mounted() {
@@ -41,17 +40,19 @@ export default {
   methods: {
     async fetchFeeds() {
       try {
-        const { data, status } = await restaurantsAPI.getFeeds()
-        if (status !== 'success') {
-          // TODO: error handling
+        const { data, statusText } = await restaurantsAPI.getFeeds()
+
+        if (statusText !== 'OK') {
+          throw new Error(statusText)
         }
+
         this.restaurants = [...data.restaurants]
         this.comments = [...data.comments]
-        this.isLoading = false
       } catch (error) {
-        // TODO: error notification
-        this.hasError = true
-        console.log('error', error)
+        Toast.fire({
+          type: 'error',
+          title: '無法取得最新動態，請稍後再試'
+        })
       }
     }
   }

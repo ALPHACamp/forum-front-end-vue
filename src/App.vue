@@ -1,9 +1,14 @@
 <template>
-  <router-view />
+  <router-view/>
 </template>
 
 <script>
-export default {
-
-}
+export default {}
 </script>
+
+<style>
+.swal2-popup.swal2-toast {
+  box-shadow: none !important;
+  border: 1px solid #dadada;
+}
+</style>

@@ -50,6 +50,8 @@
 
 <script>
 import userAPI from '@/api/users'
+import { Toast } from '@/utils/helpers'
+
 export default {
   name: 'RestaurantCard',
   props: {
@@ -60,74 +62,88 @@ export default {
   },
   data() {
     return {
-      restaurant: this.initialRestaurant,
-      isLoading: true,
-      hasError: false
+      restaurant: this.initialRestaurant
     }
   },
   methods: {
     async addFavorite(restaurantId) {
       try {
-        const data = await userAPI.addFavorite({ restaurantId })
-        if (status !== 'success') {
-          // TODO: error handling
+        const { data, statusText } = await userAPI.addFavorite({ restaurantId })
+
+        if (statusText !== 'OK' || data.status !== 'success') {
+          throw new Error(statusText)
         }
+
         this.restaurant = {
           ...this.restaurant,
           isFavorited: true
         }
       } catch (error) {
-        // TODO: error notification
-        console.log('error', error)
+        Toast.fire({
+          type: 'error',
+          title: '無法將餐廳加入最愛，請稍後再試'
+        })
       }
     },
     async removeFavorite(restaurantId) {
       try {
-        const { status, message } = await userAPI.removeFavorite({
+        const { data, statusText } = await userAPI.removeFavorite({
           restaurantId
         })
-        if (status !== 'success') {
-          // TODO: error handling
+
+        if (statusText !== 'OK' || data.status !== 'success') {
+          throw new Error(statusText)
         }
+
         this.restaurant = {
           ...this.restaurant,
           isFavorited: false
         }
       } catch (error) {
-        // TODO: error notification
-        console.log('error', error)
+        Toast.fire({
+          type: 'error',
+          title: '無法將餐廳從最愛移除，請稍後再試'
+        })
       }
     },
     async addLike(restaurantId) {
       try {
-        const data = await userAPI.addLike({ restaurantId })
-        if (status !== 'success') {
-          // TODO: error handling
+        const { data, statusText } = await userAPI.addLike({ restaurantId })
+
+        if (statusText !== 'OK' || data.status !== 'success') {
+          throw new Error(statusText)
         }
+
         this.restaurant = {
           ...this.restaurant,
           isLiked: true
         }
       } catch (error) {
-        // TODO: error notification
-        console.log('error', error)
+        Toast.fire({
+          type: 'error',
+          title: '無法按讚，請稍後再試'
+        })
       }
     },
     async removeLike(restaurantId) {
       try {
-        const { status, message } = await userAPI.removeLike({
+        const { data, statusText } = await userAPI.removeLike({
           restaurantId
         })
-        if (status !== 'success') {
-          // TODO: error handling
+
+        if (statusText !== 'OK' || data.status !== 'success') {
+          throw new Error(statusText)
         }
+
         this.restaurant = {
           ...this.restaurant,
           isLiked: false
         }
       } catch (error) {
-        // TODO: error notification
-        console.log('error', error)
+        Toast.fire({
+          type: 'error',
+          title: '無法取消按讚，請稍後再試'
+        })
       }
     }
   }

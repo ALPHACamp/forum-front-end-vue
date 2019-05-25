@@ -27,6 +27,7 @@ import RestaurantsNavPills from '@/components/RestaurantsNavPills.vue'
 import RestaurantCard from '@/components/RestaurantCard.vue'
 import RestaurantsPagination from '@/components/RestaurantsPagination.vue'
 import restaurantsAPI from '@/api/restaurants'
+import { Toast } from '@/utils/helpers'
 
 export default {
   name: 'Restaurants',
@@ -42,9 +43,7 @@ export default {
       categoryId: '',
       currentPage: 1,
       restaurants: [],
-      totalPage: 0,
-      isLoading: true,
-      hasError: false
+      totalPage: 0
     }
   },
   mounted() {
@@ -53,10 +52,13 @@ export default {
   methods: {
     async fetchRestaurants({ page = 1, categoryId = '' } = {}) {
       try {
-        const { data, status } = await restaurantsAPI.get({ page, categoryId })
+        const { data, statusText } = await restaurantsAPI.get({
+          page,
+          categoryId
+        })
 
-        if (status !== 'success') {
-          // TODO: error handling
+        if (statusText !== 'OK') {
+          throw new Error(statusText)
         }
 
         this.categories = data.categories
@@ -65,10 +67,11 @@ export default {
         this.restaurants = data.restaurants
         this.totalPage = data.totalPage.length
       } catch (error) {
-        this.hasError = true
-        console.log('something error', error)
+        Toast.fire({
+          type: 'error',
+          title: '無法取得餐廳資料，請稍後再試'
+        })
       }
-      this.isLoading = false
     }
   },
   beforeRouteUpdate(to, from, next) {

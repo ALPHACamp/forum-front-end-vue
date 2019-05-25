@@ -53,7 +53,12 @@ export default {
   methods: {
     async fetchRestaurants({ page = 1, categoryId = '' } = {}) {
       try {
-        const { data } = await restaurantsAPI.get({ page, categoryId })
+        const { data, status } = await restaurantsAPI.get({ page, categoryId })
+
+        if (status !== 'success') {
+          // TODO: error handling
+        }
+
         this.categories = data.categories
         this.categoryId = data.categoryId
         this.currentPage = data.page

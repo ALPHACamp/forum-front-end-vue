@@ -60,7 +60,9 @@ export default {
   },
   data() {
     return {
-      restaurant: this.initialRestaurant
+      restaurant: this.initialRestaurant,
+      isLoading: true,
+      hasError: false
     }
   },
   methods: {

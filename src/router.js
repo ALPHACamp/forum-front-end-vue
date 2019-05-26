@@ -59,6 +59,11 @@ export default new Router({
           component: () => import('./views/UsersEdit.vue')
         },
         {
+          path: '/admin',
+          exact: true,
+          redirect: '/admin/restaurants',
+        },
+        {
           path: '/admin/restaurants',
           name: 'admin-restaurants',
           component: () => import('./views/AdminRestaurants.vue')
@@ -87,18 +92,18 @@ export default new Router({
           path: '/admin/users/',
           name: 'admin-users',
           component: () => import('./views/AdminUsers.vue')
-        }
+        },
+        {
+          path: '/signin',
+          name: 'signin',
+          component: SignIn
+        },
+        {
+          path: '/signup',
+          name: 'signup',
+          component: () => import('./views/SignUp.vue')
+        },
       ]
-    },
-    {
-      path: '/signin',
-      name: 'signin',
-      component: SignIn
-    },
-    {
-      path: '/signup',
-      name: 'signup',
-      component: () => import('./views/SignUp.vue')
     },
     {
       path: '*',

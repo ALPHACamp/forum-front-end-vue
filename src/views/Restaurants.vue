@@ -52,7 +52,7 @@ export default {
   methods: {
     async fetchRestaurants({ page = 1, categoryId = '' } = {}) {
       try {
-        const { data, statusText } = await restaurantsAPI.get({
+        const { data, statusText } = await restaurantsAPI.getRestaurants({
           page,
           categoryId
         })

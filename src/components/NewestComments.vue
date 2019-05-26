@@ -21,23 +21,16 @@
 </template>
 
 <script>
-import moment from 'moment'
 import restaurantAPI from '@/api/restaurants'
+import { fromNowFilter } from '@/utils/mixin'
 
 export default {
   name: 'NewestComments',
+  mixins: [fromNowFilter],
   props: {
     comments: {
       type: Array,
       required: true
-    }
-  },
-  filters: {
-    fromNow(datetime) {
-      if (!datetime) {
-        return '-'
-      }
-      return moment(datetime).fromNow()
     }
   }
 }

@@ -16,6 +16,7 @@ const store = new Vuex.Store({
   },
   mutations: {
     authorized(state, payload) {
+      console.log('authorized')
       const { token, user, isAuthenticated } = payload
       state.token = token
       state.user = user
@@ -23,6 +24,7 @@ const store = new Vuex.Store({
       localStorage.setItem('token', token)
     },
     revokeAuthorized(state) {
+      console.log('revokeAuthorized')
       state.token = undefined
       state.user = {}
       state.isAuthenticated = undefined
@@ -32,13 +34,15 @@ const store = new Vuex.Store({
   actions: {
     async getUserDetail({ commit, state }, token) {
       try {
+        // no token in localStorage
         if (!token) {
           return false
         }
 
-        // When app initialize first time, verify auth with server
+        // When app initialize first time,
+        // use token from localStorage to verify auth with server
         if (!state.token) {
-          const { data } = await usersAPI.getUser()
+          const { data } = await usersAPI.getUser({ token })
           const { id, name, isAdmin, email } = data.profile
 
           commit('authorized', {

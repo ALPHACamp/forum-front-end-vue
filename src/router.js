@@ -115,8 +115,8 @@ const router = new Router({
 })
 
 router.beforeEach(async (to, from, next) => {
-  const token = await store.dispatch('verify')
-  if (!token && to.name !== 'signin') {
+  const isAuthenticated = await store.dispatch('verify')
+  if (!isAuthenticated && to.name !== 'signin') {
     next('/signin')
   }
 

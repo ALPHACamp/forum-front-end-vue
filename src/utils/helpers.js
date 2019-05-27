@@ -1,14 +1,24 @@
 import axios from 'axios'
 import Swal from 'sweetalert2'
+import store from '@/store'
 
 export const endPoint = 'http://localhost:3000/api'
-export const token =
-  'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNTU4MjMxMDMxfQ.1peMBJHXODZ35MQmy1Nb5DxVM-6TC5xbCDmSun9nVxU'
 
-export const apiHelper = axios.create({
-  baseURL: `${endPoint}`,
-  headers: { Authorization: `Bearer ${token}` }
+const axiosInstance = axios.create({
+  baseURL: `${endPoint}`
 })
+
+axiosInstance.interceptors.request.use(
+  config => {
+    if (store.state.token) {
+      config.headers['Authorization'] = `Bearer ${store.state.token}`
+    }
+    return config
+  },
+  err => Promise.reject(err)
+)
+
+export const apiHelper = axiosInstance
 
 export const Toast = Swal.mixin({
   toast: true,

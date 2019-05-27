@@ -44,6 +44,7 @@
 <script>
 import authorizationAPI from '@/api/authorization'
 import { Toast } from '@/utils/helpers'
+import { mapState } from 'vuex'
 
 export default {
   name: 'SignIn',
@@ -94,6 +95,14 @@ export default {
           title: '帳號密碼錯誤'
         })
       }
+    }
+  },
+  computed: {
+    ...mapState(['isAuthenticated'])
+  },
+  mounted() {
+    if (this.isAuthenticated) {
+      this.$router.push('/')
     }
   }
 }

@@ -1,8 +1,12 @@
 import { apiHelper } from '@/utils/helpers'
 
 export default {
-  getUser({ userId = '' } = {}) {
-    return apiHelper.get(`/users/${userId}`)
+  getUser({ userId = '', token = null } = {}) {
+    return apiHelper.get(`/users/${userId}`, {
+      headers: {
+        Authorization: `Bearer ${token}`
+      }
+    })
   },
   getTopUsers() {
     return apiHelper.get('/users/top')

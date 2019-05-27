@@ -5,10 +5,10 @@
     <hr>
     <div class="row">
       <div class="col-md-6">
-        <NewestRestaurants :restaurants="restaurants"></NewestRestaurants>
+        <NewestRestaurants :restaurants="restaurants"/>
       </div>
       <div class="col-md-6">
-        <NewestComments :comments="comments"></NewestComments>
+        <NewestComments :comments="comments"/>
       </div>
     </div>
   </div>

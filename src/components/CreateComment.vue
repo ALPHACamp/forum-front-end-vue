@@ -4,7 +4,6 @@
       <label for="text">留下評論：</label>
       <textarea class="form-control" v-model="text" rows="3"></textarea>
     </div>
-    <input type="hidden" name="restaurantId" :value="restaurantId">
     <button type="button" class="btn btn-primary" @click="submit">Submit</button>
   </form>
 </template>
@@ -52,7 +51,6 @@ export default {
         }
 
         // TODO: 通知 restaurants show 中的 comments 要更新
-
       } catch (error) {
         Toast.fire({
           type: 'error',

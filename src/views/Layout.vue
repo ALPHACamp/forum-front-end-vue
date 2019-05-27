@@ -1,6 +1,6 @@
 <template>
   <div class="grow-height-parent" style="min-height: 100%;">
-    <Navbar></Navbar>
+    <Navbar />
     <main role="main" class="mt-5 bg-light grow-height-child grow-height-parent">
       <div class="container py-5 grow-height-child">
         <router-view/>

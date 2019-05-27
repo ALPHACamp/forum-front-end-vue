@@ -62,8 +62,8 @@
       </div>
     </div>
     <hr>
-    <RestaurantComments :initialComments="restaurantComments"></RestaurantComments>
-    <CreateComment :restaurantId="restaurant.id"></CreateComment>
+    <RestaurantComments :initial-comments="restaurantComments"/>
+    <CreateComment :restaurant-id="restaurant.id"/>
     <a href="#" @click="$router.back()">回上一頁</a>
   </div>
 </template>
@@ -103,6 +103,7 @@ export default {
     this.fetchRestaurant(restaurantId)
   },
   methods: {
+    afterCreateComment() {},
     async fetchRestaurant(restaurantId) {
       try {
         const { data, statusText } = await restaurantsAPI.getRestaurant({
@@ -136,9 +137,7 @@ export default {
       }
     },
     // TODO:
-    createComment(user, text, createdAt) {
-
-    },
+    createComment(user, text, createdAt) {},
     async addFavorite(restaurantId) {
       try {
         const { data, statusText } = await usersAPI.addFavorite({

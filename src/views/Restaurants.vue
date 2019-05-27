@@ -8,15 +8,15 @@
         v-for="restaurant in restaurants"
         :key="restaurant.id"
         :initial-restaurant="restaurant"
-      ></RestaurantCard>
+      />
     </div>
 
     <RestaurantsPagination
       v-if="totalPage > 1"
-      :categoryId="categoryId"
-      :currentPage="currentPage"
-      :totalPage="totalPage"
-    ></RestaurantsPagination>
+      :category-id="categoryId"
+      :current-page="currentPage"
+      :total-page="totalPage"
+    />
   </div>
 </template>
 

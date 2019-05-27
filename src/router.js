@@ -1,13 +1,14 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import Restaurants from './views/Restaurants.vue'
-import Layout from './views/Layout.vue'
-import SignIn from './views/SignIn.vue'
-import NotFound from './views/404.vue'
+import store from '@/store'
+import Restaurants from '@/views/Restaurants.vue'
+import Layout from '@/views/Layout.vue'
+import SignIn from '@/views/SignIn.vue'
+import NotFound from '@/views/404.vue'
 
 Vue.use(Router)
 
-export default new Router({
+const router = new Router({
   mode: 'history',
   base: process.env.BASE_URL,
   linkExactActiveClass: 'active',
@@ -61,7 +62,7 @@ export default new Router({
         {
           path: '/admin',
           exact: true,
-          redirect: '/admin/restaurants',
+          redirect: '/admin/restaurants'
         },
         {
           path: '/admin/restaurants',
@@ -102,7 +103,7 @@ export default new Router({
           path: '/signup',
           name: 'signup',
           component: () => import('./views/SignUp.vue')
-        },
+        }
       ]
     },
     {
@@ -112,3 +113,14 @@ export default new Router({
     }
   ]
 })
+
+router.beforeEach(async (to, from, next) => {
+  const token = await store.dispatch('verify')
+  if (!token && to.name !== 'signin') {
+    next('/signin')
+  }
+
+  next()
+})
+
+export default router

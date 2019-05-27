@@ -19,7 +19,7 @@
         <router-link v-if="user.isAdmin" to="/admin" class="text-white mr-3">管理員後台</router-link>
 
         <!-- is user is login -->
-        <template v-if="token">
+        <template v-if="isAuthenticated">
           <router-link
             :to="{name: 'users-show', params: {id: user.id}}"
             class="text-white mr-3"
@@ -41,11 +41,12 @@ import { mapState } from 'vuex'
 export default {
   name: 'Navbar',
   computed: {
-    ...mapState(['user', 'token'])
+    ...mapState(['user', 'isAuthenticated'])
   },
   methods: {
     logout() {
       this.$store.commit('revokeAuthorized')
+      this.$router.push('/signin')
     }
   }
 }

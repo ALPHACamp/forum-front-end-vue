@@ -83,8 +83,11 @@ export default {
 
         this.$store.commit('authorized', {
           token: data.token,
-          user: data.user
+          user: data.user,
+          isAuthenticated: true
         })
+
+        this.$router.push('/')
       } catch (error) {
         Toast.fire({
           type: 'warning',

@@ -62,13 +62,17 @@
       </div>
     </div>
     <hr>
-    <RestaurantComments :initial-comments="restaurantComments"/>
-    <CreateComment :restaurant-id="restaurant.id"/>
+    <RestaurantComments
+      :restaurant-comments="restaurantComments"
+      @after-remove-comment="removeComment"
+    />
+    <CreateComment :restaurant-id="restaurant.id" @after-create-comment="createComment"/>
     <a href="#" @click="$router.back()">回上一頁</a>
   </div>
 </template>
 
 <script>
+import { mapState } from 'vuex'
 import RestaurantComments from '@/components/RestaurantComments'
 import CreateComment from '@/components/CreateComment'
 import restaurantsAPI from '@/api/restaurants'
@@ -98,12 +102,14 @@ export default {
       restaurantComments: []
     }
   },
+  computed: {
+    ...mapState(['user'])
+  },
   mounted() {
     const { id: restaurantId } = this.$route.params
     this.fetchRestaurant(restaurantId)
   },
   methods: {
-    afterCreateComment() {},
     async fetchRestaurant(restaurantId) {
       try {
         const { data, statusText } = await restaurantsAPI.getRestaurant({
@@ -136,8 +142,27 @@ export default {
         })
       }
     },
-    // TODO:
-    createComment(user, text, createdAt) {},
+    createComment(payload) {
+      const { restaurantId, text, commentId } = payload
+
+      this.restaurantComments.push({
+        id: commentId,
+        RestaurantId: restaurantId,
+        User: {
+          id: this.user.id,
+          name: this.user.name
+        },
+        text,
+        createdAt: new Date()
+      })
+    },
+    removeComment(payload) {
+      const { commentId } = payload
+
+      this.restaurantComments = this.restaurantComments.filter(
+        comment => comment.id !== commentId
+      )
+    },
     async addFavorite(restaurantId) {
       try {
         const { data, statusText } = await usersAPI.addFavorite({

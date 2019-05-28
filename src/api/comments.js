@@ -6,5 +6,8 @@ export default {
       restaurantId,
       text
     })
+  },
+  remove({ commentId }) {
+    return apiHelper.delete(`/comments/${commentId}`)
   }
 }

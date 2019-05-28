@@ -2,14 +2,14 @@
   <div>
     <h3 class="my-4">所有評論：</h3>
 
-    <div v-for="comment in initialComments" :key="comment.id">
+    <div v-for="comment in restaurantComments" :key="comment.id">
       <blockquote class="blockquote mb-0">
-        <!-- TODO: -->
-        <!-- {{#if ../user.isAdmin}}
-      <form action="/comments/{{this.id}}?_method=DELETE" method="POST" style="float: right;">
-        <button type="submit" class="btn btn-danger">Delete</button>
-      </form>
-        {{/if}}-->
+        <button
+          v-if="user.isAdmin"
+          @click.stop.prevent="removeComment(comment.id)"
+          type="button"
+          class="btn btn-danger float-right"
+        >Delete</button>
         <h4>
           <router-link
             :to="{ name: 'users-show', params: { id: comment.User.id } }"
@@ -24,22 +24,42 @@
 </template>
 
 <script>
-import usersAPI from '@/api/users'
+import { mapState } from 'vuex'
 import { Toast } from '@/utils/helpers'
 import { fromNowFilter } from '@/utils/mixin'
+import commentsAPI from '@/api/comments'
 
 export default {
   name: 'RestaurantComments',
   mixins: [fromNowFilter],
   props: {
-    initialComments: {
+    restaurantComments: {
       type: Array,
       required: true
     }
   },
-  data() {
-    return {
-      comments: this.initialComments
+  computed: {
+    ...mapState(['user'])
+  },
+  methods: {
+    async removeComment(commentId) {
+      try {
+        const { data, statusText } = await commentsAPI.remove({
+          commentId
+        })
+        if (statusText !== 'OK' || data.status !== 'success') {
+          throw new Error(statusText)
+        }
+
+        this.$emit('after-remove-comment', {
+          commentId
+        })
+      } catch (error) {
+        Toast.fire({
+          type: 'error',
+          title: '無法移除評論，請稍後再試'
+        })
+      }
     }
   }
 }

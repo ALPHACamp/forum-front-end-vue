@@ -50,7 +50,13 @@ export default {
           throw new Error(statusText)
         }
 
-        // TODO: 通知 restaurants show 中的 comments 要更新
+        this.$emit('after-create-comment', {
+          commentId: data.commentId,
+          restaurantId: this.restaurantId,
+          text: this.text
+        })
+
+        this.text = ''
       } catch (error) {
         Toast.fire({
           type: 'error',

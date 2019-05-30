@@ -5,7 +5,7 @@
     <div v-for="comment in restaurantComments" :key="comment.id">
       <blockquote class="blockquote mb-0">
         <button
-          v-if="user.isAdmin"
+          v-if="currentUser.isAdmin"
           @click.stop.prevent="removeComment(comment.id)"
           type="button"
           class="btn btn-danger float-right"
@@ -39,7 +39,7 @@ export default {
     }
   },
   computed: {
-    ...mapState(['user'])
+    ...mapState(['currentUser'])
   },
   methods: {
     async removeComment(commentId) {

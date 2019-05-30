@@ -1,7 +1,8 @@
 import { apiHelper } from '@/utils/helpers'
+import store from '@/store'
 
 export default {
-  getUser({ userId = '', token = null } = {}) {
+  getUser({ userId = '', token = store.state.token } = {}) {
     return apiHelper.get(`/users/${userId}`, {
       headers: {
         Authorization: `Bearer ${token}`

@@ -16,14 +16,14 @@
     <div class="navbar-collapse collapse" id="navbarSupportedContent">
       <div class="ml-auto d-flex align-items-center">
         <!-- is user is admin -->
-        <router-link v-if="user.isAdmin" to="/admin" class="text-white mr-3">管理員後台</router-link>
+        <router-link v-if="currentUser.isAdmin" to="/admin" class="text-white mr-3">管理員後台</router-link>
 
         <!-- is user is login -->
         <template v-if="isAuthenticated">
           <router-link
-            :to="{name: 'users-show', params: {id: user.id}}"
+            :to="{name: 'users-show', params: {id: currentUser.id }}"
             class="text-white mr-3"
-          >{{user.name || '個人資料' }}</router-link>
+          >{{currentUser.name || '個人資料' }}</router-link>
           <button
             @click="logout"
             type="button"
@@ -41,7 +41,7 @@ import { mapState } from 'vuex'
 export default {
   name: 'Navbar',
   computed: {
-    ...mapState(['user', 'isAuthenticated'])
+    ...mapState(['currentUser', 'isAuthenticated'])
   },
   methods: {
     logout() {

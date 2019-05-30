@@ -103,7 +103,7 @@ export default {
     }
   },
   computed: {
-    ...mapState(['user'])
+    ...mapState(['currentUser'])
   },
   mounted() {
     const { id: restaurantId } = this.$route.params
@@ -149,8 +149,8 @@ export default {
         id: commentId,
         RestaurantId: restaurantId,
         User: {
-          id: this.user.id,
-          name: this.user.name
+          id: this.currentUser.id,
+          name: this.currentUser.name
         },
         text,
         createdAt: new Date()

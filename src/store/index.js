@@ -6,7 +6,7 @@ Vue.use(Vuex)
 const store = new Vuex.Store({
   state: {
     token: null,
-    user: {
+    currentUser: {
       id: -1,
       name: '',
       email: '',
@@ -17,16 +17,16 @@ const store = new Vuex.Store({
   mutations: {
     authorized(state, payload) {
       console.log('authorized')
-      const { token, user, isAuthenticated } = payload
+      const { token, currentUser, isAuthenticated } = payload
       state.token = token
-      state.user = user
+      state.currentUser = currentUser
       state.isAuthenticated = isAuthenticated
       localStorage.setItem('token', token)
     },
     revokeAuthorized(state) {
       console.log('revokeAuthorized')
       state.token = undefined
-      state.user = {}
+      state.currentUser = {}
       state.isAuthenticated = undefined
       localStorage.removeItem('token')
     }
@@ -47,7 +47,7 @@ const store = new Vuex.Store({
 
           commit('authorized', {
             token,
-            user: { id, name, email, isAdmin },
+            currentUser: { id, name, email, isAdmin },
             isAuthenticated: true
           })
         }

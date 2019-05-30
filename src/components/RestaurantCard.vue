@@ -11,7 +11,7 @@
       <div class="card-body">
         <p class="card-text">
           <router-link
-            :to="{ name: 'restaurants-show', params: { id: restaurant.id }}"
+            :to="{ name: 'restaurant-show', params: { id: restaurant.id }}"
           >{{ restaurant.name }}</router-link>
         </p>
         <span class="badge badge-secondary">{{restaurant.Category.name}}</span>

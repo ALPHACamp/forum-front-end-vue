@@ -32,7 +32,7 @@
         <p>{{restaurant.description}}</p>
         <router-link
           class="btn btn-primary mr-2"
-          :to="{name: 'restaurants-dashboard', params: {id: restaurant.id }}"
+          :to="{name: 'restaurant-dashboard', params: {id: restaurant.id }}"
         >Dashboard</router-link>
 
         <button
@@ -80,7 +80,7 @@ import usersAPI from '@/api/users'
 import { Toast } from '@/utils/helpers'
 
 export default {
-  name: 'RestaurantsShow',
+  name: 'RestaurantShow',
   components: {
     RestaurantComments,
     CreateComment

@@ -5,7 +5,7 @@
       <div v-for="restaurant in restaurants" :key="restaurant.id">
         <h4>
           <router-link
-            :to="{ name: 'restaurants-show', params: {id: restaurant.id}}"
+            :to="{ name: 'restaurant-show', params: {id: restaurant.id}}"
           >{{ restaurant.name }}</router-link>
           <small>&nbsp;{{ restaurant.Category.name }}</small>
         </h4>

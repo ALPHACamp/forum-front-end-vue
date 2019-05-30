@@ -12,7 +12,7 @@
         >Delete</button>
         <h4>
           <router-link
-            :to="{ name: 'users-show', params: { id: comment.User.id } }"
+            :to="{ name: 'user-show', params: { id: comment.User.id } }"
           >{{ comment.User.name }}</router-link>
         </h4>
         <p>{{comment.text}}</p>

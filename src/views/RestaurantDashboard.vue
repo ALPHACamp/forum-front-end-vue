@@ -21,7 +21,7 @@ import { Toast } from '@/utils/helpers'
 import restaurantsAPI from '@/api/restaurants'
 
 export default {
-  name: 'RestaurantsDashboard',
+  name: 'RestaurantDashboard',
   data() {
     return {
       restaurant: {

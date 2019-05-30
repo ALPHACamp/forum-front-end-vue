@@ -36,13 +36,13 @@ const router = new Router({
         },
         {
           path: '/restaurants/:id',
-          name: 'restaurants-show',
-          component: () => import('./views/RestaurantsShow.vue')
+          name: 'restaurant-show',
+          component: () => import('./views/RestaurantShow.vue')
         },
         {
           path: '/restaurants/:id/dashboard',
-          name: 'restaurants-dashboard',
-          component: () => import('./views/RestaurantsDashboard.vue')
+          name: 'restaurant-dashboard',
+          component: () => import('./views/RestaurantDashboard.vue')
         },
         {
           path: '/users/top',
@@ -51,13 +51,13 @@ const router = new Router({
         },
         {
           path: '/users/:id',
-          name: 'users-show',
-          component: () => import('./views/UsersShow.vue')
+          name: 'user-show',
+          component: () => import('./views/UserShow.vue')
         },
         {
           path: '/users/:id/edit',
-          name: 'users-edit',
-          component: () => import('./views/UsersEdit.vue')
+          name: 'user-edit',
+          component: () => import('./views/UserEdit.vue')
         },
         {
           path: '/admin',
@@ -70,14 +70,19 @@ const router = new Router({
           component: () => import('./views/AdminRestaurants.vue')
         },
         {
+          path: '/admin/restaurants/new',
+          name: 'admin-restaurant-new',
+          component: () => import('./views/AdminRestaurantNew.vue')
+        },
+        {
           path: '/admin/restaurants/:id/edit',
-          name: 'admin-restaurants-edit',
-          component: () => import('./views/AdminRestaurantsEdit.vue')
+          name: 'admin-restaurant-edit',
+          component: () => import('./views/AdminRestaurantEdit.vue')
         },
         {
           path: '/admin/restaurants/:id/show',
-          name: 'admin-restaurants-show',
-          component: () => import('./views/AdminRestaurantsShow.vue')
+          name: 'admin-restaurant-show',
+          component: () => import('./views/AdminRestaurantShow.vue')
         },
         {
           path: '/admin/categories',
@@ -86,8 +91,8 @@ const router = new Router({
         },
         {
           path: '/admin/categories/:id/edit',
-          name: 'admin-categories-edit',
-          component: () => import('./views/AdminCategoriesEdit.vue')
+          name: 'admin-category-edit',
+          component: () => import('./views/AdminCategoryEdit.vue')
         },
         {
           path: '/admin/users/',

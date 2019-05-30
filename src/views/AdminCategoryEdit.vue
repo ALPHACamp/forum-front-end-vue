@@ -1,11 +1,11 @@
 <template>
   <div>
-    <h1>This is AdminRestaurantsNew page</h1>
+    <h1>This is AdminCategoryEdit page</h1>
   </div>
 </template>
 
 <script>
 export default {
-  name: 'AdminRestaurantsNew'
+  name: 'AdminCategoryEdit'
 }
 </script>

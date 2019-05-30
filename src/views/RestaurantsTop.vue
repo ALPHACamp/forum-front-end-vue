@@ -12,7 +12,7 @@
     >
       <div class="row no-gutters">
         <div class="col-md-4">
-          <router-link :to="{name: 'restaurants-show', params: {id: restaurant.id }}">
+          <router-link :to="{name: 'restaurant-show', params: {id: restaurant.id }}">
             <img class="card-img" :src="restaurant.image">
           </router-link>
         </div>
@@ -23,7 +23,7 @@
             <p class="card-text">{{restaurant.description}}</p>
             <router-link
               class="btn btn-primary mr-2"
-              :to="{name: 'restaurants-show', params: {id: restaurant.id }}"
+              :to="{name: 'restaurant-show', params: {id: restaurant.id }}"
             >Show</router-link>
 
             <button

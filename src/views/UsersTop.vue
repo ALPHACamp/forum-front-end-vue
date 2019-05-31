@@ -33,12 +33,14 @@
 import NavTabs from '@/components/NavTabs.vue'
 import usersAPI from '@/api/users'
 import { Toast } from '@/utils/helpers'
+import { emptyImageFilter } from '@/utils/mixin'
 
 export default {
   name: 'UsersTop',
   components: {
     NavTabs
   },
+  mixins: [emptyImageFilter],
   data() {
     return {
       users: []
@@ -117,14 +119,6 @@ export default {
           title: '無法取消追蹤，請稍後再試'
         })
       }
-    }
-  },
-  filters: {
-    emptyImage(src) {
-      if (!src) {
-        return 'http://via.placeholder.com/300x300?text=No+Image'
-      }
-      return src
     }
   }
 }

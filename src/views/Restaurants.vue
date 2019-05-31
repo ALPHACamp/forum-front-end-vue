@@ -49,6 +49,12 @@ export default {
   mounted() {
     this.fetchRestaurants()
   },
+  beforeRouteUpdate(to, from, next) {
+    // 路由改變時重新抓取資料
+    const { page, categoryId } = to.query
+    this.fetchRestaurants({ page, categoryId })
+    next()
+  },
   methods: {
     async fetchRestaurants({ page = 1, categoryId = '' } = {}) {
       try {
@@ -73,12 +79,6 @@ export default {
         })
       }
     }
-  },
-  beforeRouteUpdate(to, from, next) {
-    // 路由改變時重新抓取資料
-    const { page, categoryId } = to.query
-    this.fetchRestaurants({ page, categoryId })
-    next()
   }
 }
 </script>

@@ -54,6 +54,14 @@ export default {
       password: ''
     }
   },
+  computed: {
+    ...mapState(['isAuthenticated'])
+  },
+  mounted() {
+    if (this.isAuthenticated) {
+      this.$router.push('/')
+    }
+  },
   methods: {
     submit(e) {
       e.preventDefault()
@@ -95,14 +103,6 @@ export default {
           title: '帳號密碼錯誤'
         })
       }
-    }
-  },
-  computed: {
-    ...mapState(['isAuthenticated'])
-  },
-  mounted() {
-    if (this.isAuthenticated) {
-      this.$router.push('/')
     }
   }
 }

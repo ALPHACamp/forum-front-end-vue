@@ -1,62 +1,44 @@
 <template>
   <div v-show="!isLoading">
-    <div class="card mb-3">
-      <div class="row no-gutters">
-        <div class="col-md-4">
-          <img :src="user.image" width="300px" height="300px">
-        </div>
-        <div class="col-md-8">
-          <div class="card-body">
-            <h5 class="card-title">{{user.name}}</h5>
-            <p class="card-text">{{user.email}}</p>
-            <ul class="list-unstyled">
-              <li>
-                <strong>{{user.commentsLength}}</strong> 已評論餐廳
-              </li>
-              <li>
-                <strong>{{user.favoritedRestaurantsLength}}</strong> 收藏的餐廳
-              </li>
-              <li>
-                <strong>{{user.followingsLength}}</strong> followings (追蹤者)
-              </li>
-              <li>
-                <strong>{{user.followersLength}}</strong> followers (追隨者)
-              </li>
-            </ul>
-            <template v-if="currentUser.id === user.id">
-              <router-link
-                :to="{name: 'user-edit', params: { id: user.id }}"
-                class="btn btn-primary"
-              >Edit</router-link>
-            </template>
-            <template v-else>
-              <button
-                v-if="isFollowed"
-                @click.stop.prevent="removeFollowing(user.id)"
-                type="button"
-                class="btn btn-danger"
-              >取消追蹤</button>
-              <button
-                v-else
-                @click.stop.prevent="addFollowing(user.id)"
-                type="button"
-                class="btn btn-primary"
-              >追蹤</button>
-            </template>
-          </div>
-        </div>
+    <user-show-profile-card
+      :user="user"
+      :isCurrentUser="currentUser.id === user.id"
+      :isFollowedInitial="isFollowed"
+      @after-update-followed="afterUpdateFollowed"
+    />
+
+    <div class="row">
+      <div class="col-md-4">
+        <user-show-followings-card :followings="followings"/>
+        <user-show-followers-card :followers="followers"/>
+      </div>
+      <div class="col-md-8">
+        <user-show-comments-card :comments="comments"/>
+        <user-show-favorited-restaurants-card :favorited-restaurants="favoritedRestaurants"/>
       </div>
     </div>
   </div>
 </template>
 
 <script>
+import { mapState } from 'vuex'
 import usersAPI from '@/api/users'
 import { Toast } from '@/utils/helpers'
-import { mapState } from 'vuex'
+import UserShowProfileCard from '@/components/UserShowProfileCard'
+import UserShowFollowingsCard from '@/components/UserShowFollowingsCard'
+import UserShowFollowersCard from '@/components/UserShowFollowersCard'
+import UserShowCommentsCard from '@/components/UserShowCommentsCard'
+import UserShowFavoritedRestaurantsCard from '@/components/UserShowFavoritedRestaurantsCard'
 
 export default {
   name: 'UserShow',
+  components: {
+    UserShowProfileCard,
+    UserShowFollowingsCard,
+    UserShowFollowersCard,
+    UserShowCommentsCard,
+    UserShowFavoritedRestaurantsCard
+  },
   data() {
     return {
       user: {
@@ -64,12 +46,16 @@ export default {
         image: '',
         name: '',
         email: '',
-        commentsLength: 0,
-        favoritedRestaurantsLength: 0,
         followingsLength: 0,
-        followersLength: 0
+        followersLength: 0,
+        commentsLength: 0,
+        favoritedRestaurantsLength: 0
       },
       isFollowed: false,
+      followings: [],
+      followers: [],
+      comments: [],
+      favoritedRestaurants: [],
       isLoading: true
     }
   },
@@ -79,6 +65,12 @@ export default {
   mounted() {
     const { id: userId } = this.$route.params
     this.fetchUser(userId)
+  },
+  beforeRouteUpdate(to, from, next) {
+    // 路由改變時重新抓取資料
+    const { id: userId } = to.params
+    this.fetchUser(userId)
+    next()
   },
   methods: {
     async fetchUser(userId) {
@@ -99,12 +91,18 @@ export default {
           image: profile.image,
           name: profile.name,
           email: profile.email,
-          commentsLength: profile.Comments.length,
-          favoritedRestaurantsLength: profile.FavoritedRestaurants.length,
           followingsLength: profile.Followings.length,
-          followersLength: profile.Followers.length
+          followersLength: profile.Followers.length,
+          commentsLength: profile.Comments.length,
+          favoritedRestaurantsLength: profile.FavoritedRestaurants.length
         }
         this.isFollowed = isFollowed
+
+        this.followings = profile.Followings
+        this.followers = profile.Followers
+        this.favoritedRestaurants = profile.FavoritedRestaurants
+        this.comments = profile.Comments
+
         this.isLoading = false
       } catch (error) {
         console.log('error', error)
@@ -114,41 +112,9 @@ export default {
         })
       }
     },
-    async addFollowing(userId) {
-      try {
-        const { data, statusText } = await usersAPI.addFollowing({
-          userId
-        })
-
-        if (statusText !== 'OK' || data.status !== 'success') {
-          throw new Error(statusText)
-        }
-
-        this.isFollowed = true
-      } catch (error) {
-        Toast.fire({
-          type: 'error',
-          title: '無法加入追蹤，請稍後再試'
-        })
-      }
-    },
-    async removeFollowing(userId) {
-      try {
-        const { data, statusText } = await usersAPI.removeFollowing({
-          userId
-        })
-
-        if (statusText !== 'OK' || data.status !== 'success') {
-          throw new Error(statusText)
-        }
-
-        this.isFollowed = false
-      } catch (error) {
-        Toast.fire({
-          type: 'error',
-          title: '無法取消追蹤，請稍後再試'
-        })
-      }
+    afterUpdateFollowed(payload) {
+      const { isFollowed } = payload
+      this.isFollowed = isFollowed
     }
   }
 }

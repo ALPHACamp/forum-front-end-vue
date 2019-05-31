@@ -10,3 +10,14 @@ export const fromNowFilter = {
     }
   }
 }
+
+export const emptyImageFilter = {
+  filters: {
+    emptyImage(src) {
+      if (!src) {
+        return 'http://via.placeholder.com/300x300?text=No+Image'
+      }
+      return src
+    }
+  }
+}

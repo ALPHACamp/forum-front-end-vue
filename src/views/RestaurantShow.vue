@@ -78,6 +78,7 @@ import CreateComment from '@/components/CreateComment'
 import restaurantsAPI from '@/api/restaurants'
 import usersAPI from '@/api/users'
 import { Toast } from '@/utils/helpers'
+import { emptyImageFilter } from '@/utils/mixin'
 
 export default {
   name: 'RestaurantShow',
@@ -85,6 +86,7 @@ export default {
     RestaurantComments,
     CreateComment
   },
+  mixins: [emptyImageFilter],
   data() {
     return {
       restaurant: {
@@ -244,14 +246,6 @@ export default {
           title: '無法取消按讚，請稍後再試'
         })
       }
-    }
-  },
-  filters: {
-    emptyImage(src) {
-      if (!src) {
-        return 'http://via.placeholder.com/300x300?text=No+Image'
-      }
-      return src
     }
   }
 }

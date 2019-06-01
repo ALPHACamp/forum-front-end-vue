@@ -92,7 +92,7 @@ export default {
 
         this.$store.commit('authorized', {
           token: data.token,
-          user: data.user,
+          currentUser: data.user,
           isAuthenticated: true
         })
 

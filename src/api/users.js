@@ -2,12 +2,15 @@ import { apiHelper } from '@/utils/helpers'
 import store from '@/store'
 
 export default {
-  getUser({ userId = '', token = store.state.token } = {}) {
+  get({ userId = '', token = store.state.token } = {}) {
     return apiHelper.get(`/users/${userId}`, {
       headers: {
         Authorization: `Bearer ${token}`
       }
     })
+  },
+  update({ userId, form }) {
+    return apiHelper.put(`/users/${userId}`,form)
   },
   getTopUsers() {
     return apiHelper.get('/users/top')

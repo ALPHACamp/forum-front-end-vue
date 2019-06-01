@@ -78,7 +78,7 @@ export default {
         const {
           data: { profile, isFollowed },
           statusText
-        } = await usersAPI.getUser({
+        } = await usersAPI.get({
           userId
         })
 
@@ -87,6 +87,7 @@ export default {
         }
 
         this.user = {
+          ...this.user,
           id: profile.id,
           image: profile.image,
           name: profile.name,
@@ -96,6 +97,7 @@ export default {
           commentsLength: profile.Comments.length,
           favoritedRestaurantsLength: profile.FavoritedRestaurants.length
         }
+
         this.isFollowed = isFollowed
 
         this.followings = profile.Followings

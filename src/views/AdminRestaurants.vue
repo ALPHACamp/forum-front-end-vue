@@ -1,11 +1,21 @@
 <template>
   <div>
-    <h1>This is AdminRestaurants page</h1>
+    <admin-nav/>
+
+    <router-link :to="{name: 'admin-restaurant-create'}" class="btn btn-primary mb-4">New Restaurant</router-link>
+    <admin-restaurants-table/>
   </div>
 </template>
 
 <script>
+import AdminNav from '@/components/AdminNav'
+import AdminRestaurantsTable from '@/components/AdminRestaurantsTable'
+
 export default {
-  name: 'AdminRestaurants'
+  name: 'AdminRestaurants',
+  components: {
+    AdminNav,
+    AdminRestaurantsTable
+  }
 }
 </script>

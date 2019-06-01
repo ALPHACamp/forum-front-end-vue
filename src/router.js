@@ -70,9 +70,9 @@ const router = new Router({
           component: () => import('./views/AdminRestaurants.vue')
         },
         {
-          path: '/admin/restaurants/new',
-          name: 'admin-restaurant-new',
-          component: () => import('./views/AdminRestaurantNew.vue')
+          path: '/admin/restaurants/create',
+          name: 'admin-restaurant-create',
+          component: () => import('./views/AdminRestaurantCreate.vue')
         },
         {
           path: '/admin/restaurants/:id/edit',

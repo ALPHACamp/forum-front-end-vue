@@ -107,7 +107,6 @@ export default {
 
         this.isLoading = false
       } catch (error) {
-        console.log('error', error)
         Toast.fire({
           type: 'error',
           title: '無法取得使用者資料，請稍後再試'

@@ -1,11 +1,16 @@
 <template>
   <div>
-    <h1>This is AdminCategories page</h1>
+    <admin-nav/>
   </div>
 </template>
 
 <script>
+import AdminNav from '@/components/AdminNav'
+
 export default {
-  name: 'AdminCategories'
+  name: 'AdminCategories',
+  components: {
+    AdminNav
+  }
 }
 </script>

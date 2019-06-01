@@ -54,7 +54,7 @@ export default {
   },
   methods: {
     handleDelete(restaurantId) {
-      this.deleteRestaurant({ restaurantId })
+      this.removeRestaurant({ restaurantId })
     },
     async fetchRestaurants() {
       try {
@@ -76,9 +76,9 @@ export default {
         })
       }
     },
-    async deleteRestaurant({ restaurantId }) {
+    async removeRestaurant({ restaurantId }) {
       try {
-        const { data, statusText } = await adminAPI.restaurants.delete({
+        const { data, statusText } = await adminAPI.restaurants.remove({
           restaurantId
         })
 
@@ -89,6 +89,11 @@ export default {
         this.restaurants = this.restaurants.filter(
           restaurant => restaurant.id !== restaurantId
         )
+
+        Toast.fire({
+          type: 'success',
+          title: '刪除餐廳成功'
+        })
       } catch (error) {
         Toast.fire({
           type: 'error',

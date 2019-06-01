@@ -5,10 +5,16 @@ export default {
     get() {
       return apiHelper.get('/admin/restaurants')
     },
+    getDetail({ restaurantId }) {
+      return apiHelper.get(`/admin/restaurants/${restaurantId}`)
+    },
     new({ formData }) {
       return apiHelper.post('/admin/restaurants', formData)
     },
-    delete({ restaurantId }) {
+    update({ restaurantId, formData }) {
+      return apiHelper.put(`/admin/restaurants/${restaurantId}`, formData)
+    },
+    remove({ restaurantId }) {
       return apiHelper.delete(`/admin/restaurants/${restaurantId}`)
     }
   },

@@ -54,6 +54,11 @@ export default {
         this.$emit('after-remove-comment', {
           commentId
         })
+
+        Toast.fire({
+          type: 'success',
+          title: '移除評論成功'
+        })
       } catch (error) {
         Toast.fire({
           type: 'error',

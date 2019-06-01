@@ -20,8 +20,13 @@
         id="categoryId"
         class="form-control"
         name="categoryId"
+        required
       >
-        <option v-for="category in categories" :key="category.id">{{ category.name }}</option>
+        <option
+          v-for="category in categories"
+          :value="category.id"
+          :key="category.id"
+        >{{ category.name }}</option>
       </select>
     </div>
 
@@ -90,7 +95,11 @@
       >
     </div>
 
-    <button type="submit" class="btn btn-primary">Submit</button>
+    <button
+      type="submit"
+      class="btn btn-primary"
+      :disabled="isProcessing"
+    >{{ isProcessing ? "資料更新中..." : "Submit" }}</button>
   </form>
 </template>
 
@@ -100,6 +109,25 @@ import { Toast } from '@/utils/helpers'
 
 export default {
   name: 'AdminRestaurantForm',
+  props: {
+    initialRestaurant: {
+      type: Object,
+      default: () => ({
+        name: '',
+        categoryId: '',
+        tel: '',
+        address: '',
+        description: '',
+        image: '',
+        openingHours: '',
+        file: ''
+      })
+    },
+    initialIsProcessing: {
+      type: Boolean,
+      default: false
+    }
+  },
   data() {
     return {
       restaurant: {
@@ -112,11 +140,20 @@ export default {
         openingHours: '',
         file: ''
       },
-      categories: [],
-      isLoading: true
+      categories: []
+    }
+  },
+  computed: {
+    isProcessing() {
+      return this.initialIsProcessing
     }
   },
   mounted() {
+    this.restaurant = {
+      ...this.restaurant,
+      ...this.initialRestaurant
+    }
+
     this.fetchCategories()
   },
   methods: {
@@ -124,7 +161,13 @@ export default {
       if (!this.restaurant.name) {
         Toast.fire({
           type: 'warning',
-          title: '您尚未填寫餐廳名稱'
+          title: '請填寫餐廳名稱'
+        })
+        return
+      } else if (!this.restaurant.categoryId) {
+        Toast.fire({
+          type: 'warning',
+          title: '請選擇餐廳類別'
         })
         return
       }

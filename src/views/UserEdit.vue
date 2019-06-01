@@ -1,8 +1,16 @@
 <template>
-  <form v-show="!isLoading">
+  <form v-show="!isLoading" @submit.stop.prevent="handleSubmit">
     <div class="form-group">
       <label for="name">Name</label>
-      <input type="text" id="name" v-model="name" class="form-control" placeholder="Enter Name">
+      <input
+        type="text"
+        name="name"
+        id="name"
+        v-model="name"
+        class="form-control"
+        placeholder="Enter Name"
+        required
+      >
     </div>
 
     <div class="form-group">
@@ -11,6 +19,7 @@
       <input
         type="file"
         id="image"
+        name="image"
         @change="handleFileChange"
         accept="image/*"
         class="form-control-file"
@@ -18,8 +27,7 @@
     </div>
 
     <button
-      type="button"
-      @click.stop.prevent="handleSubmit"
+      type="submit"
       class="btn btn-primary"
       :disabled="isProcessing"
     >{{ isProcessing ? "資料更新中..." : "Submit" }}</button>
@@ -69,12 +77,16 @@ export default {
       const imageURL = window.URL.createObjectURL(file)
       this.image = imageURL
     },
-    handleSubmit() {
-      let form = new FormData()
-      form.append('image', this.file)
-      form.append('name', this.name)
+    handleSubmit(e) {
+      if (!this.name) {
+        Toast.fire({
+          type: 'warning',
+          title: '您尚未填寫姓名'
+        })
+      }
 
-      this.updateUser(form)
+      const formData = new FormData(e.target)
+      this.updateUser(formData)
     },
     async fetchUser(userId) {
       try {
@@ -101,15 +113,15 @@ export default {
         })
       }
     },
-    async updateUser(form) {
+    async updateUser(formData) {
       try {
         this.isProcessing = true
         const { data, statusText } = await usersAPI.update({
           userId: this.id,
-          form
+          formData,
         })
 
-        if (statusText !== 'OK') {
+        if (statusText !== 'OK' || data.status !== 'success') {
           throw new Error(statusText)
         }
         this.isProcessing = false

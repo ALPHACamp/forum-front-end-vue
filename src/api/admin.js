@@ -1,10 +1,20 @@
 import { apiHelper } from '@/utils/helpers'
 
 export default {
-  getRestaurants() {
-    return apiHelper.get(`/admin/restaurants`)
+  restaurants: {
+    get() {
+      return apiHelper.get('/admin/restaurants')
+    },
+    new({ formData }) {
+      return apiHelper.post('/admin/restaurants', formData)
+    },
+    delete({ restaurantId }) {
+      return apiHelper.delete(`/admin/restaurants/${restaurantId}`)
+    }
   },
-  deleteRestaurant({ restaurantId }) {
-    return apiHelper.delete(`/admin/restaurants/${restaurantId}`)
+  categories: {
+    get() {
+      return apiHelper.get('/admin/categories')
+    }
   }
 }

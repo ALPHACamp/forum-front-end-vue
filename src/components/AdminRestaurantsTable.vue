@@ -12,7 +12,7 @@
       <tbody>
         <tr v-for="restaurant in restaurants" :key="restaurant.id">
           <th scope="row">{{restaurant.id}}</th>
-          <td>{{restaurant.Category.name}}</td>
+          <td>{{restaurant.Category && restaurant.Category.name}}</td>
           <td>{{restaurant.name}}</td>
           <td>
             <router-link
@@ -25,7 +25,11 @@
               class="btn btn-link"
             >Edit</router-link>
 
-            <button type="button" class="btn btn-link" @click="handleDelete(restaurant.id)">Delete</button>
+            <button
+              type="button"
+              class="btn btn-link"
+              @click.stop.prevent="handleDelete(restaurant.id)"
+            >Delete</button>
           </td>
         </tr>
       </tbody>
@@ -57,7 +61,7 @@ export default {
         const {
           data: { restaurants },
           statusText
-        } = await adminAPI.getRestaurants()
+        } = await adminAPI.restaurants.get()
 
         if (statusText !== 'OK') {
           throw new Error(statusText)
@@ -74,11 +78,11 @@ export default {
     },
     async deleteRestaurant({ restaurantId }) {
       try {
-        const { data, statusText } = await adminAPI.deleteRestaurant({
+        const { data, statusText } = await adminAPI.restaurants.delete({
           restaurantId
         })
 
-        if (statusText !== 'OK') {
+        if (statusText !== 'OK' || data.status !== 'success') {
           throw new Error(statusText)
         }
 

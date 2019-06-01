@@ -46,7 +46,7 @@ export default {
           text: this.text
         })
 
-        if (statusText !== 'OK') {
+        if (statusText !== 'OK' || data.status !== 'success') {
           throw new Error(statusText)
         }
 

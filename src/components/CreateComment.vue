@@ -41,7 +41,7 @@ export default {
     },
     async createComment() {
       try {
-        const { data, statusText } = await commentsAPI.create({
+        const { data, statusText } = await commentsAPI.new({
           restaurantId: this.restaurantId,
           text: this.text
         })

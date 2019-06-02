@@ -90,11 +90,6 @@ const router = new Router({
           component: () => import('./views/AdminCategories.vue')
         },
         {
-          path: '/admin/categories/:id/edit',
-          name: 'admin-category-edit',
-          component: () => import('./views/AdminCategoryEdit.vue')
-        },
-        {
           path: '/admin/users/',
           name: 'admin-users',
           component: () => import('./views/AdminUsers.vue')

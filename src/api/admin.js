@@ -21,6 +21,15 @@ export default {
   categories: {
     get() {
       return apiHelper.get('/admin/categories')
+    },
+    new({ name }) {
+      return apiHelper.post('/admin/categories', { name })
+    },
+    update({ categoryId, name }) {
+      return apiHelper.put(`/admin/categories/${categoryId}`, { name })
+    },
+    remove({ categoryId }) {
+      return apiHelper.delete(`/admin/categories/${categoryId}`)
     }
   }
 }

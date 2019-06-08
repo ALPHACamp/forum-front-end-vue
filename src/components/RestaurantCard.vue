@@ -158,6 +158,15 @@ export default {
   background-color: transparent;
 }
 
+.btn,
+.btn-border.btn:hover {
+  margin: 7px 14px 7px 0;
+}
+
+.card {
+  margin-bottom: 2.1rem !important;
+}
+
 .card-body {
   padding: 17.5px !important;
   height: 135px;

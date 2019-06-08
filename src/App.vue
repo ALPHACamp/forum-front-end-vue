@@ -55,7 +55,6 @@ a {
 .btn-border.btn:hover {
   min-width: 84.47px !important;
   padding: 7px 14px !important;
-  margin: 7px 14px 7px 0;
   font-size: 14px !important;
   background-color: #bd2333 !important;
   border-color: #bd2333 !important;

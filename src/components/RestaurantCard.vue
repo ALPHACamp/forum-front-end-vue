@@ -158,10 +158,6 @@ export default {
   background-color: transparent;
 }
 
-.card {
-  margin-bottom: 2.1rem !important;
-}
-
 .card-body {
   padding: 17.5px !important;
   height: 135px;

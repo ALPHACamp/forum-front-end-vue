@@ -1,11 +1,11 @@
 <template>
   <div>
     <div class="row">
-      <div class="col-md-12">
+      <div class="col-md-12 mb-3">
         <h1>{{restaurant.name}}</h1>
-        <p>[{{restaurant.categoryName}}]</p>
+        <p class="badge badge-secondary mt-1 mb-3">{{restaurant.categoryName}}</p>
       </div>
-      <div class="col-md-4">
+      <div class="col-lg-4">
         <img
           class="img-responsive center-block"
           :src="restaurant.image | emptyImage"
@@ -28,10 +28,10 @@
           </ul>
         </div>
       </div>
-      <div class="col-md-8">
+      <div class="col-lg-8">
         <p>{{restaurant.description}}</p>
         <router-link
-          class="btn btn-primary mr-2"
+          class="btn btn-primary btn-border mr-2"
           :to="{name: 'restaurant-dashboard', params: {id: restaurant.id }}"
         >Dashboard</router-link>
 
@@ -39,13 +39,13 @@
           v-if="restaurant.isFavorited"
           @click.stop.prevent="removeFavorite(restaurant.id)"
           type="button"
-          class="btn btn-danger mr-2"
+          class="btn btn-danger btn-border mr-2"
         >移除最愛</button>
         <button
           v-else
           @click.stop.prevent="addFavorite(restaurant.id)"
           type="button"
-          class="btn btn-primary mr-2"
+          class="btn btn-primary btn-border mr-2"
         >加到最愛</button>
         <button
           v-if="restaurant.isLiked"
@@ -67,21 +67,34 @@
       @after-remove-comment="removeComment"
     />
     <CreateComment :restaurant-id="restaurant.id" @after-create-comment="createComment"/>
-    <a href="#" @click="$router.back()">回上一頁</a>
+    <!-- TODO 目前將原寫法加上註解，因想讓此頁的回上一頁以 pagination 的箭頭方式呈現，但不確定目前這樣的寫法是否實際帶使用者是回上一頁。 -->
+    <!-- <a href="#" @click="$router.back()">回上一頁</a> -->
+    <nav aria-label="Page navigation example">
+      <ul class="pagination">
+        <li class="page-item">
+          <router-link
+            class="page-link"
+            :to="{name: 'restaurants', query: { categoryId, page: previousPage }}"
+          >
+            <span aria-hidden="true">&laquo;</span>
+          </router-link>
+        </li>
+      </ul>
+    </nav>
   </div>
 </template>
 
 <script>
-import { mapState } from 'vuex'
-import RestaurantComments from '@/components/RestaurantComments'
-import CreateComment from '@/components/CreateComment'
-import restaurantsAPI from '@/api/restaurants'
-import usersAPI from '@/api/users'
-import { Toast } from '@/utils/helpers'
-import { emptyImageFilter } from '@/utils/mixin'
+import { mapState } from "vuex";
+import RestaurantComments from "@/components/RestaurantComments";
+import CreateComment from "@/components/CreateComment";
+import restaurantsAPI from "@/api/restaurants";
+import usersAPI from "@/api/users";
+import { Toast } from "@/utils/helpers";
+import { emptyImageFilter } from "@/utils/mixin";
 
 export default {
-  name: 'RestaurantShow',
+  name: "RestaurantShow",
   components: {
     RestaurantComments,
     CreateComment
@@ -91,35 +104,35 @@ export default {
     return {
       restaurant: {
         id: -1,
-        name: '',
-        categoryName: '',
-        image: '',
-        openingHours: '',
-        tel: '',
-        address: '',
-        description: '',
+        name: "",
+        categoryName: "",
+        image: "",
+        openingHours: "",
+        tel: "",
+        address: "",
+        description: "",
         isFavorited: false,
         isLiked: false
       },
       restaurantComments: []
-    }
+    };
   },
   computed: {
-    ...mapState(['currentUser'])
+    ...mapState(["currentUser"])
   },
   mounted() {
-    const { id: restaurantId } = this.$route.params
-    this.fetchRestaurant(restaurantId)
+    const { id: restaurantId } = this.$route.params;
+    this.fetchRestaurant(restaurantId);
   },
   methods: {
     async fetchRestaurant(restaurantId) {
       try {
         const { data, statusText } = await restaurantsAPI.getRestaurant({
           restaurantId
-        })
+        });
 
-        if (statusText !== 'OK') {
-          throw new Error(statusText)
+        if (statusText !== "OK") {
+          throw new Error(statusText);
         }
 
         this.restaurant = {
@@ -134,18 +147,18 @@ export default {
           description: data.restaurant.description,
           isFavorited: data.isFavorited,
           isLiked: data.isLiked
-        }
+        };
 
-        this.restaurantComments = data.restaurant.Comments
+        this.restaurantComments = data.restaurant.Comments;
       } catch (error) {
         Toast.fire({
-          type: 'error',
-          title: '無法取得餐廳資料，請稍後再試'
-        })
+          type: "error",
+          title: "無法取得餐廳資料，請稍後再試"
+        });
       }
     },
     createComment(payload) {
-      const { restaurantId, text, commentId } = payload
+      const { restaurantId, text, commentId } = payload;
 
       this.restaurantComments.push({
         id: commentId,
@@ -156,97 +169,117 @@ export default {
         },
         text,
         createdAt: new Date()
-      })
+      });
     },
     removeComment(payload) {
-      const { commentId } = payload
+      const { commentId } = payload;
 
       this.restaurantComments = this.restaurantComments.filter(
         comment => comment.id !== commentId
-      )
+      );
     },
     async addFavorite(restaurantId) {
       try {
         const { data, statusText } = await usersAPI.addFavorite({
           restaurantId
-        })
+        });
 
-        if (statusText !== 'OK' || data.status !== 'success') {
-          throw new Error(statusText)
+        if (statusText !== "OK" || data.status !== "success") {
+          throw new Error(statusText);
         }
 
         this.restaurant = {
           ...this.restaurant,
           isFavorited: true
-        }
+        };
       } catch (error) {
         Toast.fire({
-          type: 'error',
-          title: '無法將餐廳加入最愛，請稍後再試'
-        })
+          type: "error",
+          title: "無法將餐廳加入最愛，請稍後再試"
+        });
       }
     },
     async removeFavorite(restaurantId) {
       try {
         const { data, statusText } = await usersAPI.removeFavorite({
           restaurantId
-        })
+        });
 
-        if (statusText !== 'OK' || data.status !== 'success') {
-          throw new Error(statusText)
+        if (statusText !== "OK" || data.status !== "success") {
+          throw new Error(statusText);
         }
 
         this.restaurant = {
           ...this.restaurant,
           isFavorited: false
-        }
+        };
       } catch (error) {
         Toast.fire({
-          type: 'error',
-          title: '無法將餐廳從最愛移除，請稍後再試'
-        })
+          type: "error",
+          title: "無法將餐廳從最愛移除，請稍後再試"
+        });
       }
     },
     async addLike(restaurantId) {
       try {
-        const { data, statusText } = await usersAPI.addLike({ restaurantId })
+        const { data, statusText } = await usersAPI.addLike({ restaurantId });
 
-        if (statusText !== 'OK' || data.status !== 'success') {
-          throw new Error(statusText)
+        if (statusText !== "OK" || data.status !== "success") {
+          throw new Error(statusText);
         }
 
         this.restaurant = {
           ...this.restaurant,
           isLiked: true
-        }
+        };
       } catch (error) {
         Toast.fire({
-          type: 'error',
-          title: '無法按讚，請稍後再試'
-        })
+          type: "error",
+          title: "無法按讚，請稍後再試"
+        });
       }
     },
     async removeLike(restaurantId) {
       try {
         const { data, statusText } = await usersAPI.removeLike({
           restaurantId
-        })
+        });
 
-        if (statusText !== 'OK' || data.status !== 'success') {
-          throw new Error(statusText)
+        if (statusText !== "OK" || data.status !== "success") {
+          throw new Error(statusText);
         }
 
         this.restaurant = {
           ...this.restaurant,
           isLiked: false
-        }
+        };
       } catch (error) {
         Toast.fire({
-          type: 'error',
-          title: '無法取消按讚，請稍後再試'
-        })
+          type: "error",
+          title: "無法取消按讚，請稍後再試"
+        });
       }
     }
   }
-}
+};
 </script>
+<style lang="css" scoped>
+h1 {
+  margin-bottom: 3px;
+}
+.col-lg-8 p,
+.well li,
+.well strong {
+  font-family: "noto_serif", serif;
+  font-size: 17px;
+}
+.pagination {
+  -webkit-box-pack: start;
+  -ms-flex-pack: start;
+  justify-content: start;
+  margin-top: 6px;
+}
+.badge.badge-secondary {
+  font-size: 12.5px;
+}
+</style>

@@ -24,13 +24,13 @@
 </template>
 
 <script>
-import { mapState } from 'vuex'
-import { Toast } from '@/utils/helpers'
-import { fromNowFilter } from '@/utils/mixin'
-import commentsAPI from '@/api/comments'
+import { mapState } from "vuex";
+import { Toast } from "@/utils/helpers";
+import { fromNowFilter } from "@/utils/mixin";
+import commentsAPI from "@/api/comments";
 
 export default {
-  name: 'RestaurantComments',
+  name: "RestaurantComments",
   mixins: [fromNowFilter],
   props: {
     restaurantComments: {
@@ -39,35 +39,35 @@ export default {
     }
   },
   computed: {
-    ...mapState(['currentUser'])
+    ...mapState(["currentUser"])
   },
   methods: {
     async removeComment(commentId) {
       try {
         const { data, statusText } = await commentsAPI.remove({
           commentId
-        })
-        if (statusText !== 'OK' || data.status !== 'success') {
-          throw new Error(statusText)
+        });
+        if (statusText !== "OK" || data.status !== "success") {
+          throw new Error(statusText);
         }
 
-        this.$emit('after-remove-comment', {
+        this.$emit("after-remove-comment", {
           commentId
-        })
+        });
 
         Toast.fire({
-          type: 'success',
-          title: '移除評論成功'
-        })
+          type: "success",
+          title: "移除評論成功"
+        });
       } catch (error) {
         Toast.fire({
-          type: 'error',
-          title: '無法移除評論，請稍後再試'
-        })
+          type: "error",
+          title: "無法移除評論，請稍後再試"
+        });
       }
     }
   }
-}
+};
 </script>
 <style lang="css" scoped>
 h2.my-4 {

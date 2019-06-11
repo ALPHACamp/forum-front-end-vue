@@ -3,24 +3,20 @@
 </template>
 
 <script>
-import store from '@/store'
+import store from "@/store";
 export default {
   store
-}
+};
 </script>
 
 <style lang="scss">
 * {
   font-size: 15px;
   font-weight: normal !important;
-  font-family: '微軟正黑體';
+  font-family: "微軟正黑體";
   line-height: 1.5;
   color: #4d4d4d;
   outline: none;
-}
-
-body{
-  overflow: scroll!important;
 }
 
 .page-link:focus,
@@ -28,6 +24,7 @@ body{
 .btn,
 .navbar-dark .navbar-toggler {
   outline: none !important;
+  -webkit-box-shadow: none !important;
   box-shadow: none !important;
 }
 
@@ -37,10 +34,20 @@ body{
 
 a {
   color: #bd2333 !important;
+  -webkit-transition: all 0.3s ease-in-out !important;
+  -o-transition: all 0.3s ease-in-out !important;
   transition: all 0.3s ease-in-out !important;
+  -webkit-transition-property: all !important;
+  -o-transition-property: all !important;
   transition-property: all !important;
+  -webkit-transition-duration: 0.3s !important;
+  -o-transition-duration: 0.3s !important;
   transition-duration: 0.3s !important;
+  -webkit-transition-timing-function: ease-in-out !important;
+  -o-transition-timing-function: ease-in-out !important;
   transition-timing-function: ease-in-out !important;
+  -webkit-transition-delay: 0s !important;
+  -o-transition-delay: 0s !important;
   transition-delay: 0s !important;
 }
 
@@ -49,14 +56,39 @@ a {
   min-width: 84.47px !important;
   padding: 7px 14px !important;
   font-size: 14px !important;
-  color: #fff !important;
   background-color: #bd2333 !important;
-  border: 2px solid #bd2333!important;
+  border-color: #bd2333 !important;
+  color: #fff !important;
+  border-width: 2px !important;
+  -webkit-transition: color 0.15s ease-in-out,
+    background-color 0.15s ease-in-out, border-color 0.15s ease-in-out,
+    -webkit-box-shadow 0.15s ease-in-out;
   transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out,
-  border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+    border-color 0.15s ease-in-out, -webkit-box-shadow 0.15s ease-in-out;
+  -o-transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out,
+    border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+  transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out,
+    border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+  transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out,
+    border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out,
+    -webkit-box-shadow 0.15s ease-in-out;
+  -webkit-transition-property: color, background-color, border-color,
+    -webkit-box-shadow;
+  transition-property: color, background-color, border-color, -webkit-box-shadow;
+  -o-transition-property: color, background-color, border-color, box-shadow;
   transition-property: color, background-color, border-color, box-shadow;
+  transition-property: color, background-color, border-color, box-shadow,
+    -webkit-box-shadow;
+  -webkit-transition-duration: 0.15s, 0.15s, 0.15s, 0.15s;
+  -o-transition-duration: 0.15s, 0.15s, 0.15s, 0.15s;
   transition-duration: 0.15s, 0.15s, 0.15s, 0.15s;
+  -webkit-transition-timing-function: ease-in-out, ease-in-out, ease-in-out,
+    ease-in-out;
+  -o-transition-timing-function: ease-in-out, ease-in-out, ease-in-out,
+    ease-in-out;
   transition-timing-function: ease-in-out, ease-in-out, ease-in-out, ease-in-out;
+  -webkit-transition-delay: 0s, 0s, 0s, 0s;
+  -o-transition-delay: 0s, 0s, 0s, 0s;
   transition-delay: 0s, 0s, 0s, 0s;
 }
 
@@ -73,7 +105,7 @@ a {
 
 h1,
 .card-text {
-  font-family: 'noto_serif', serif;
+  font-family: "noto_serif", serif;
 }
 
 main.bg-light {
@@ -110,7 +142,11 @@ nav.bg-dark {
 }
 
 .pagination {
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
   justify-content: center;
   margin-top: 20px;
 }
@@ -150,6 +186,8 @@ a.page-link:hover {
 
 .card {
   border: none !important;
+  -ms-box-shadow: -1px 4px 10px rgba(0, 0, 0, 0.06);
+  -o-box-shadow: -1px 4px 10px rgba(0, 0, 0, 0.06);
   box-shadow: -1px 4px 10px rgba(0, 0, 0, 0.06);
 }
 
@@ -173,7 +211,6 @@ a.page-link:hover {
 .card-text a:hover {
   color: #bd2333 !important;
 }
-
 .card-text.text-truncate {
   display: -webkit-box;
   -webkit-line-clamp: 2;

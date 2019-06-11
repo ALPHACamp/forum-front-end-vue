@@ -11,11 +11,11 @@
 </template>
 
 <script>
-import commentsAPI from '@/api/comments'
-import { Toast } from '@/utils/helpers'
+import commentsAPI from "@/api/comments";
+import { Toast } from "@/utils/helpers";
 
 export default {
-  name: 'CreateComment',
+  name: "CreateComment",
   props: {
     restaurantId: {
       type: Number,
@@ -24,52 +24,52 @@ export default {
   },
   data() {
     return {
-      text: ''
-    }
+      text: ""
+    };
   },
   methods: {
     submit(e) {
-      e.preventDefault()
-      e.stopPropagation()
+      e.preventDefault();
+      e.stopPropagation();
       if (!this.text) {
         Toast.fire({
-          type: 'warning',
-          title: '您尚未填寫任何評論'
-        })
-        return
+          type: "warning",
+          title: "您尚未填寫任何評論"
+        });
+        return;
       }
 
-      this.createComment()
+      this.createComment();
     },
     async createComment() {
       try {
         const { data, statusText } = await commentsAPI.new({
           restaurantId: this.restaurantId,
           text: this.text
-        })
+        });
 
-        if (statusText !== 'OK' || data.status !== 'success') {
-          throw new Error(statusText)
+        if (statusText !== "OK" || data.status !== "success") {
+          throw new Error(statusText);
         }
 
-        this.$emit('after-create-comment', {
+        this.$emit("after-create-comment", {
           commentId: data.commentId,
           restaurantId: this.restaurantId,
           text: this.text
-        })
+        });
 
-        this.text = ''
+        this.text = "";
       } catch (error) {
         Toast.fire({
-          type: 'error',
-          title: '無法新增評論，請稍後再試'
-        })
+          type: "error",
+          title: "無法新增評論，請稍後再試"
+        });
       }
     }
   }
-}
+};
 </script>
-<style lang="css" scoped>
+<style scoped>
 .form-group {
   margin: 21px 0 8px;
 }

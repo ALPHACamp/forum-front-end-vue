@@ -1,7 +1,7 @@
 // ./src/App.vue
 <template>
   <div id="restaurant-forum">
-    <navbar />
+    <Navbar />
 
     <main
       role="main"

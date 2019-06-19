@@ -1,6 +1,6 @@
 <template>
   <div class="container py-5">
-    <nav-tabs />
+    <NavTabs />
     <h1 class="mt-5">
       首頁 - 餐廳列表
     </h1>

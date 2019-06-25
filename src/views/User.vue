@@ -20,6 +20,7 @@
         <UserCommentsCard :comments="comments" />
 
         <!-- UserFavoritedRestaurantsCard -->
+        <UserFavoritedRestaurantsCard :favorited-restaurants="favoritedRestaurants" />
       </div>
     </div>
   </div>
@@ -30,6 +31,7 @@ import UserProfileCard from './../components/UserProfileCard'
 import UserFollowingsCard from './../components/UserFollowingsCard'
 import UserFollowersCard from './../components/UserFollowersCard'
 import UserCommentsCard from './../components/UserCommentsCard'
+import UserFavoritedRestaurantsCard from './../components/UserFavoritedRestaurantsCard'
 
 const dummyData = {
   profile: {
@@ -41,8 +43,67 @@ const dummyData = {
     isAdmin: true,
     createdAt: '2019-06-22T09:00:43.000Z',
     updatedAt: '2019-06-23T01:15:48.000Z',
-    FavoritedRestaurants: [],
-    Followers: [],
+    FavoritedRestaurants: [
+      {
+        id: 2,
+        name: 'Mrs. Mckenzie Johnston',
+        tel: '567-714-6131 x621',
+        address: '61371 Rosalinda Knoll',
+        opening_hours: '08:00',
+        description:
+          'Quia pariatur perferendis architecto tenetur omnis pariatur tempore.',
+        image:
+          'https://loremflickr.com/320/240/food,dessert,restaurant/?random=2',
+        createdAt: '2019-06-22T09:00:43.000Z',
+        updatedAt: '2019-06-22T09:00:43.000Z',
+        CategoryId: 3,
+        Favorite: {
+          UserId: 1,
+          RestaurantId: 2,
+          createdAt: '2019-06-24T15:03:34.000Z',
+          updatedAt: '2019-06-24T15:03:34.000Z'
+        }
+      },
+      {
+        id: 3,
+        name: 'Abel Blanda',
+        tel: '1-554-475-7456 x210',
+        address: '4510 Guiseppe Lights',
+        opening_hours: '08:00',
+        description:
+          'Quibusdam aliquid perferendis quam. Aspernatur sit dolor aliquid unde iure. Qui voluptatibus aperiam autem fugit corrupti dolore. Nostrum ipsa est quas voluptatibus quia debitis veniam. Libero harum assumenda in impedit. Aliquid consequatur voluptatibus quo tenetur nesciunt enim suscipit voluptatibus.\n \rVitae eos magni nihil. Facilis laborum et labore consequuntur dolores quis aut rem porro. Enim suscipit cumque dolorem odio sint alias. Molestias excepturi esse maxime magnam eius aut non soluta.\n \rEum commodi ea itaque aut quam. Nemo nobis aliquid quis dolorem. Aspernatur aut non consequatur ad perferendis maiores sunt eveniet.',
+        image:
+          'https://loremflickr.com/320/240/food,dessert,restaurant/?random=3',
+        createdAt: '2019-06-22T09:00:43.000Z',
+        updatedAt: '2019-06-22T09:00:43.000Z',
+        CategoryId: 4,
+        Favorite: {
+          UserId: 1,
+          RestaurantId: 3,
+          createdAt: '2019-06-24T15:03:35.000Z',
+          updatedAt: '2019-06-24T15:03:35.000Z'
+        }
+      }
+    ],
+    Followers: [
+      {
+        id: 1,
+        name: 'root',
+        email: 'root@example.com',
+        password:
+          '$2a$10$3.cGoUF1lkEfQ2Oi57VpC.xVU3/8NS6yJzBQ0VJKV9AeW0e1trmmS',
+        image: 'https://i.imgur.com/JtQJRMZ.png',
+        isAdmin: true,
+        createdAt: '2019-06-22T09:00:43.000Z',
+        updatedAt: '2019-06-23T01:15:48.000Z',
+        Followship: {
+          followerId: 1,
+          followingId: 3,
+          createdAt: '2019-06-24T14:21:23.000Z',
+          updatedAt: '2019-06-24T14:21:23.000Z'
+        }
+      }
+    ],
     Followings: [
       {
         id: 3,
@@ -173,7 +234,8 @@ export default {
     UserProfileCard,
     UserFollowingsCard,
     UserFollowersCard,
-    UserCommentsCard
+    UserCommentsCard,
+    UserFavoritedRestaurantsCard
   },
   data () {
     return {

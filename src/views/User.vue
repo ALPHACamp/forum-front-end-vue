@@ -1,21 +1,27 @@
 <template>
   <div class="container py-5">
-    <!-- UserShowProfileCard -->
+    <!-- UserProfileCard -->
+    <UserProfileCard
+      :user="user"
+      :is-current-user="currentUser.id === user.id"
+      :initial-is-followed="isFollowed"
+    />
 
     <div class="row">
       <div class="col-md-4">
-        <!-- UserShowFollowingsCard -->
-        <!-- UserShowFollowersCard -->
+        <!-- UserFollowingsCard -->
+        <!-- UserFollowersCard -->
       </div>
       <div class="col-md-8">
-        <!-- UserShowCommentsCard -->
-        <!-- UserShowFavoritedRestaurantsCard -->
+        <!-- UserCommentsCard -->
+        <!-- UserFavoritedRestaurantsCard -->
       </div>
     </div>
   </div>
 </template>
 
 <script>
+import UserProfileCard from './../components/UserProfileCard'
 
 const dummyData = {
   profile: {
@@ -142,6 +148,9 @@ const dummyUser = {
 
 export default {
   name: 'User',
+  components: {
+    UserProfileCard
+  },
   data () {
     return {
       user: {
@@ -164,7 +173,6 @@ export default {
   },
   created () {
     this.fetchUser()
-    console.log('this.currentUser.id', this.currentUser.id, this.user.id)
   },
   methods: {
     fetchUser () {

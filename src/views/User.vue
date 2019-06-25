@@ -17,6 +17,8 @@
       </div>
       <div class="col-md-8">
         <!-- UserCommentsCard -->
+        <UserCommentsCard :comments="comments" />
+
         <!-- UserFavoritedRestaurantsCard -->
       </div>
     </div>
@@ -27,6 +29,7 @@
 import UserProfileCard from './../components/UserProfileCard'
 import UserFollowingsCard from './../components/UserFollowingsCard'
 import UserFollowersCard from './../components/UserFollowersCard'
+import UserCommentsCard from './../components/UserCommentsCard'
 
 const dummyData = {
   profile: {
@@ -129,7 +132,20 @@ const dummyData = {
         RestaurantId: 1,
         createdAt: '2019-06-23T12:42:45.000Z',
         updatedAt: '2019-06-23T12:42:45.000Z',
-        Restaurant: null
+        Restaurant: {
+          id: 10,
+          name: 'Landen Schmeler MD',
+          tel: '764-310-0872',
+          address: '86710 Oberbrunner Meadow',
+          opening_hours: '08:00',
+          description:
+            'Sunt magni repudiandae cum. Qui quae excepturi veritatis porro deleniti atque vel adipisci quod. Praesentium laudantium iure. Consequatur quis et porro ab ipsa repudiandae in. Itaque molestiae veniam voluptatum quia. Voluptatibus doloremque quia consequatur sed.',
+          image:
+            'https://loremflickr.com/320/240/food,dessert,restaurant/?random=10',
+          createdAt: '2019-06-22T09:00:43.000Z',
+          updatedAt: '2019-06-22T09:00:43.000Z',
+          CategoryId: 3
+        }
       }
     ]
   },
@@ -156,7 +172,8 @@ export default {
   components: {
     UserProfileCard,
     UserFollowingsCard,
-    UserFollowersCard
+    UserFollowersCard,
+    UserCommentsCard
   },
   data () {
     return {
@@ -206,5 +223,4 @@ export default {
     }
   }
 }
-
 </script>

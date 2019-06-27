@@ -6,9 +6,3 @@
     <a href="#">Users</a>
   </div>
 </template>
-
-<script>
-export default {
-  name: 'AdminNav'
-}
-</script>

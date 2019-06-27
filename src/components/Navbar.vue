@@ -63,7 +63,6 @@ const dummyUser = {
 }
 
 export default {
-  name: 'Navbar',
   data () {
     return {
       currentUser: {

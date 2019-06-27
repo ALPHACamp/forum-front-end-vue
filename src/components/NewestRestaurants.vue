@@ -28,7 +28,6 @@
 import { fromNowFilter } from './../utils/mixins'
 
 export default {
-  name: 'NewestRestaurants',
   mixins: [fromNowFilter],
   props: {
     restaurants: {

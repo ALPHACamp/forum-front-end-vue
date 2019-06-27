@@ -73,7 +73,6 @@
 
 <script>
 export default {
-  name: 'RestaurantDetail',
   filters: {
     emptyImage (src) {
       return src || 'http://via.placeholder.com/300x300?text=No+Image'

@@ -66,7 +66,6 @@
 import { emptyImageFilter } from './../utils/mixins'
 
 export default {
-  name: 'UserProfileCard',
   mixins: [emptyImageFilter],
   props: {
     user: {

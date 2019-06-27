@@ -26,7 +26,6 @@
 
 <script>
 export default {
-  name: 'RestaurantsNavPills',
   props: {
     categories: {
       type: Array,

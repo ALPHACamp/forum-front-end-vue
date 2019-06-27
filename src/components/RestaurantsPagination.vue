@@ -47,7 +47,6 @@
 
 <script>
 export default {
-  name: 'RestaurantsPagination',
   props: {
     categoryId: {
       type: [String, Number],

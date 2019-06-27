@@ -55,6 +55,16 @@ export default new Router({
       component: () => import('./views/User.vue')
     },
     {
+      path: '/admin',
+      exact: true,
+      redirect: '/admin/restaurants'
+    },
+    {
+      path: '/admin/restaurants',
+      name: 'admin-restaurants',
+      component: () => import('./views/AdminRestaurants.vue')
+    },
+    {
       path: '*',
       name: 'not-found',
       component: NotFound

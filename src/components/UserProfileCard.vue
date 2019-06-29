@@ -31,12 +31,14 @@
             </li>
           </ul>
           <template v-if="isCurrentUser">
-            <a
-              href="#"
+            <router-link
+              :to="{name: 'user-edit', params: {
+                id: user.id
+              }}"
               class="btn btn-primary"
             >
               Edit
-            </a>
+            </router-link>
           </template>
           <template v-else>
             <button

@@ -11,7 +11,7 @@
         :key="user.id"
         class="col-3"
       >
-        <router-link :to="{name: 'user-show', params: {id: user.id}}">
+        <router-link :to="{name: 'user', params: {id: user.id}}">
           <img
             :src="user.image | emptyImage"
             width="140px"

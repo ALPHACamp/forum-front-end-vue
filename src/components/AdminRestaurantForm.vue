@@ -145,6 +145,21 @@ const dummyData = {
 }
 
 export default {
+  props: {
+    initialRestaurant: {
+      type: Object,
+      default: () => ({
+        name: '',
+        categoryId: '',
+        tel: '',
+        address: '',
+        description: '',
+        image: '',
+        openingHours: '',
+        file: ''
+      })
+    }
+  },
   data () {
     return {
       restaurant: {
@@ -161,6 +176,10 @@ export default {
   },
   created () {
     this.fetchCategories()
+    this.restaurant = {
+      ...this.restaurant,
+      ...this.initialRestaurant
+    }
   },
   methods: {
     fetchCategories () {

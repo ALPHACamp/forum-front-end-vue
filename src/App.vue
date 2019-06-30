@@ -1,4 +1,3 @@
-// ./src/App.vue
 <template>
   <div id="restaurant-forum">
     <Navbar />

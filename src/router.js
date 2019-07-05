@@ -12,7 +12,7 @@ export default new Router({
     {
       path: '/',
       name: 'root',
-      redirect: '/restaurants'
+      redirect: '/signin'
     },
     {
       path: '/signin',

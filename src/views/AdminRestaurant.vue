@@ -67,7 +67,6 @@ const dummyData = {
 }
 
 export default {
-  name: 'AdminRestaurant',
   mixins: [emptyImageFilter],
   data () {
     return {

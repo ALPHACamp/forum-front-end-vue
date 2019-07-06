@@ -55,7 +55,6 @@ const dummyData = {
 }
 
 export default {
-  name: 'UserEdit',
   data () {
     return {
       id: 0,

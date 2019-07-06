@@ -123,7 +123,6 @@ const dummyData = {
 }
 
 export default {
-  name: 'AdminRestaurants',
   components: {
     AdminNav,
     AdminRestaurantsTable

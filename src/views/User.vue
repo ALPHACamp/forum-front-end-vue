@@ -229,7 +229,6 @@ const dummyUser = {
 }
 
 export default {
-  name: 'User',
   components: {
     UserProfileCard,
     UserFollowingsCard,

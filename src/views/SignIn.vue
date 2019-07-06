@@ -40,6 +40,7 @@
       <button
         class="btn btn-lg btn-primary btn-block mb-3"
         type="submit"
+        :disabled="isProcessing"
       >
         Submit
       </button>
@@ -64,11 +65,11 @@ import authorizationAPI from './../apis/authorization'
 import { Toast } from './../utils/helpers'
 
 export default {
-  name: 'SignIn',
   data () {
     return {
       email: '',
-      password: ''
+      password: '',
+      isProcessing: false
     }
   },
   methods: {
@@ -81,6 +82,8 @@ export default {
           })
           return
         }
+
+        this.isProcessing = true
 
         // 使用 authorizationAPI 的 signIn 方法
         // 並且帶入使用者填寫的 email 和 password
@@ -102,6 +105,7 @@ export default {
         this.$router.push('/restaurants')
       } catch (error) {
         this.password = ''
+        this.isProcessing = false
 
         Toast.fire({
           type: 'warning',

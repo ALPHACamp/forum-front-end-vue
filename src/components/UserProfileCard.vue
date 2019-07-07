@@ -45,7 +45,7 @@
               v-if="isFollowed"
               type="button"
               class="btn btn-danger"
-              @click.stop.prevent="removeFollowing()"
+              @click.stop.prevent="deleteFollowing()"
             >
               取消追蹤
             </button>
@@ -92,7 +92,7 @@ export default {
     addFollowing () {
       this.isFollowed = true
     },
-    removeFollowing (userId) {
+    deleteFollowing (userId) {
       this.isFollowed = false
     }
   }

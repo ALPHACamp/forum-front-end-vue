@@ -25,7 +25,7 @@
             v-if="user.isFollowed"
             type="button"
             class="btn btn-danger"
-            @click.stop.prevent="removeFollowing(user.id)"
+            @click.stop.prevent="deleteFollowing(user.id)"
           >
             取消追蹤
           </button>
@@ -112,7 +112,7 @@ export default {
         })
       }
     },
-    async removeFollowing (userId) {
+    async deleteFollowing (userId) {
       try {
         const { data, statusText } = await usersAPI.deleteFollowing({
           userId

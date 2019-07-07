@@ -41,7 +41,7 @@
               v-if="restaurant.isFavorited"
               type="button"
               class="btn btn-danger mr-2"
-              @click.stop.prevent="removeFavorite(restaurant.id)"
+              @click.stop.prevent="deleteFavorite(restaurant.id)"
             >
               移除最愛
             </button>
@@ -122,7 +122,7 @@ export default {
         })
       }
     },
-    async removeFavorite (restaurantId) {
+    async deleteFavorite (restaurantId) {
       try {
         const { data, statusText } = await usersAPI.deleteFavorite({
           restaurantId

@@ -63,23 +63,59 @@
 </template>
 
 <script>
+import adminAPI from './../apis/admin'
+import { Toast } from './../utils/helpers'
+
 export default {
-  props: {
-    initialRestaurants: {
-      type: Array,
-      default: () => []
-    }
-  },
   data () {
     return {
-      restaurants: this.initialRestaurants
+      restaurants: []
     }
   },
+  created () {
+    this.fetchRestaurants()
+  },
   methods: {
-    deleteRestaurant (restaurantId) {
-      this.restaurants = this.restaurants.filter(
-        restaurant => restaurant.id !== restaurantId
-      )
+    async fetchRestaurants () {
+      try {
+        const { data, statusText } = await adminAPI.restaurants.get()
+
+        if (statusText !== 'OK') {
+          throw new Error(statusText)
+        }
+
+        this.restaurants = data.restaurants
+      } catch (error) {
+        Toast.fire({
+          type: 'error',
+          title: '無法取得餐廳，請稍後再試'
+        })
+      }
+    },
+    async deleteRestaurant (restaurantId) {
+      try {
+        const { data, statusText } = await adminAPI.restaurants.delete({
+          restaurantId
+        })
+
+        if (statusText !== 'OK' || data.status !== 'success') {
+          throw new Error(statusText)
+        }
+
+        this.restaurants = this.restaurants.filter(
+          restaurant => restaurant.id !== restaurantId
+        )
+
+        Toast.fire({
+          type: 'success',
+          title: '刪除餐廳成功'
+        })
+      } catch (error) {
+        Toast.fire({
+          type: 'error',
+          title: '無法取得刪除餐廳，請稍後再試'
+        })
+      }
     }
   }
 }

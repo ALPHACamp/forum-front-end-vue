@@ -34,6 +34,15 @@ export default {
       return apiHelper.get('/admin/categories', {
         headers: { Authorization: `Bearer ${getToken()}` }
       })
+    },
+    create ({ name }) {
+      return apiHelper.post(
+        '/admin/categories',
+        { name },
+        {
+          headers: { Authorization: `Bearer ${getToken()}` }
+        }
+      )
     }
   }
 }

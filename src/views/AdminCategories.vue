@@ -104,37 +104,10 @@
 </template>
 
 <script>
-import AdminNav from '@/components/AdminNav'
 import uuid from 'uuid/v4'
-
-const dummyData = {
-  categories: [
-    {
-      id: 1,
-      name: '中式料理',
-      createdAt: '2019-06-22T09:00:43.000Z',
-      updatedAt: '2019-06-22T09:00:43.000Z'
-    },
-    {
-      id: 2,
-      name: '日本料理',
-      createdAt: '2019-06-22T09:00:43.000Z',
-      updatedAt: '2019-06-22T09:00:43.000Z'
-    },
-    {
-      id: 3,
-      name: '義大利料理',
-      createdAt: '2019-06-22T09:00:43.000Z',
-      updatedAt: '2019-06-22T09:00:43.000Z'
-    },
-    {
-      id: 4,
-      name: '墨西哥料理',
-      createdAt: '2019-06-22T09:00:43.000Z',
-      updatedAt: '2019-06-22T09:00:43.000Z'
-    }
-  ]
-}
+import AdminNav from './../components/AdminNav'
+import adminAPI from './../apis/admin'
+import { Toast } from './../utils/helpers'
 
 export default {
   components: {
@@ -150,12 +123,28 @@ export default {
     this.fetchCategories()
   },
   methods: {
-    fetchCategories () {
-      // 在每一個 category 中都添加一個 isEditing 屬性
-      this.categories = dummyData.categories.map(category => ({
-        ...category,
-        isEditing: false
-      }))
+    async fetchCategories () {
+      try {
+        const {
+          data,
+          statusText
+        } = await adminAPI.categories.get()
+
+        if (statusText !== 'OK') {
+          throw new Error(statusText)
+        }
+
+        // 在每一個 category 中都添加一個 isEditing 屬性
+        this.categories = data.categories.map(category => ({
+          ...category,
+          isEditing: false
+        }))
+      } catch (error) {
+        Toast.fire({
+          type: 'error',
+          title: '無法取得餐廳類別，請稍後再試'
+        })
+      }
     },
     createCategory () {
       // TODO: 透過 API 告知伺服器欲新增的餐廳類別...

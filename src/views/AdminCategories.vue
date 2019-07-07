@@ -171,10 +171,24 @@ export default {
         })
       }
     },
-    updateCategory ({ categoryId, name }) {
-      // TODO: 透過 API 去向伺服器更新餐廳類別名稱
+    async updateCategory ({ categoryId, name }) {
+      try {
+        const { data, statusText } = await adminAPI.categories.update({
+          categoryId,
+          name
+        })
 
-      this.toggleIsEditing(categoryId)
+        if (statusText !== 'OK' || data.status !== 'success') {
+          throw new Error(statusText)
+        }
+
+        this.toggleIsEditing(categoryId)
+      } catch (error) {
+        Toast.fire({
+          type: 'error',
+          title: '無法更新餐廳類別，請稍後再試'
+        })
+      }
     },
     deleteCategory (categoryId) {
       // TODO: 透過 API 告知伺服器欲刪除的餐廳類別

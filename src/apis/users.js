@@ -2,6 +2,11 @@ import { apiHelper } from './../utils/helpers'
 const getToken = () => localStorage.getItem('token')
 
 export default {
+  get ({ userId = '' } = {}) {
+    return apiHelper.get(`/users/${userId}`, {
+      headers: { Authorization: `Bearer ${getToken()}` }
+    })
+  },
   getTopUsers () {
     return apiHelper.get('/users/top', {
       headers: { Authorization: `Bearer ${getToken()}` }

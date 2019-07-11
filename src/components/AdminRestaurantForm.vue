@@ -160,10 +160,10 @@ export default {
     }
   },
   watch: {
-    initialRestaurant (restaurants) {
+    initialRestaurant (restaurant) {
       this.restaurant = {
         ...this.restaurant,
-        ...this.initialRestaurant
+        ...restaurant
       }
     }
   },

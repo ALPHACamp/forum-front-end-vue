@@ -18,9 +18,7 @@
           Delete
         </button>
         <h3>
-          <router-link
-            :to="{ name: 'user', params: {id: comment.User.id }}"
-          >
+          <router-link :to="{ name: 'user', params: {id: comment.User.id }}">
             {{ comment.User.name }}
           </router-link>
         </h3>
@@ -35,18 +33,10 @@
 </template>
 
 <script>
+import { mapState } from 'vuex'
+import commentsAPI from './../apis/comments'
+import { Toast } from './../utils/helpers'
 import { fromNowFilter } from './../utils/mixins'
-
-const dummyUser = {
-  currentUser: {
-    id: 1,
-    name: '管理者',
-    email: 'root@example.com',
-    image: 'https://i.pravatar.cc/300',
-    isAdmin: true
-  },
-  isAuthenticated: true
-}
 
 export default {
   mixins: [fromNowFilter],
@@ -56,15 +46,32 @@ export default {
       required: true
     }
   },
-  data () {
-    return {
-      currentUser: dummyUser.currentUser
-    }
+  computed: {
+    ...mapState(['currentUser'])
   },
   methods: {
-    deleteComment (commentId) {
-      // TODO:在透過 API 向伺服器請求刪除 id 為 commentId 的評論後 ...
-      this.$emit('after-delete-comment', commentId)
+    async deleteComment (commentId) {
+      try {
+        const { data, statusText } = await commentsAPI.delete({
+          commentId
+        })
+
+        if (statusText !== 'OK' || data.status !== 'success') {
+          throw new Error(statusText)
+        }
+
+        this.$emit('after-delete-comment', commentId)
+
+        Toast.fire({
+          type: 'success',
+          title: '移除評論成功'
+        })
+      } catch (error) {
+        Toast.fire({
+          type: 'error',
+          title: '無法移除評論，請稍後再試'
+        })
+      }
     }
   }
 }

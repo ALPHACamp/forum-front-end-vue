@@ -27,7 +27,6 @@
 </template>
 
 <script>
-// STEP 1: 匯入 mapState 方法
 import { mapState } from 'vuex'
 import usersAPI from './../apis/users'
 import { Toast } from './../utils/helpers'
@@ -36,8 +35,6 @@ import UserFollowingsCard from './../components/UserFollowingsCard'
 import UserFollowersCard from './../components/UserFollowersCard'
 import UserCommentsCard from './../components/UserCommentsCard'
 import UserFavoritedRestaurantsCard from './../components/UserFavoritedRestaurantsCard'
-
-// STEP 4: 移除 dummyUser
 
 export default {
   components: {
@@ -64,10 +61,8 @@ export default {
       followers: [],
       comments: [],
       favoritedRestaurants: []
-      // STEP 3: 移除 currentUser
     }
   },
-  // STEP 2: 將資料從 Vuex 取出
   computed: {
     ...mapState(['currentUser'])
   },

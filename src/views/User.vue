@@ -27,7 +27,8 @@
 </template>
 
 <script>
-// STEP 1: 匯入 usersAPI 和 Toast
+// STEP 1: 匯入 mapState 方法
+import { mapState } from 'vuex'
 import usersAPI from './../apis/users'
 import { Toast } from './../utils/helpers'
 import UserProfileCard from './../components/UserProfileCard'
@@ -36,18 +37,7 @@ import UserFollowersCard from './../components/UserFollowersCard'
 import UserCommentsCard from './../components/UserCommentsCard'
 import UserFavoritedRestaurantsCard from './../components/UserFavoritedRestaurantsCard'
 
-// STEP 8: 移除 dummyData
-
-const dummyUser = {
-  currentUser: {
-    id: 1,
-    name: '管理者',
-    email: 'root@example.com',
-    image: 'https://i.pravatar.cc/300',
-    isAdmin: true
-  },
-  isAuthenticated: true
-}
+// STEP 4: 移除 dummyUser
 
 export default {
   components: {
@@ -73,26 +63,26 @@ export default {
       followings: [],
       followers: [],
       comments: [],
-      favoritedRestaurants: [],
-      currentUser: dummyUser.currentUser
+      favoritedRestaurants: []
+      // STEP 3: 移除 currentUser
     }
   },
+  // STEP 2: 將資料從 Vuex 取出
+  computed: {
+    ...mapState(['currentUser'])
+  },
   created () {
-    // STEP 7 從路由取得使用者 id，並呼叫方法
     const { id } = this.$route.params
     this.fetchUser(id)
   },
-  // STEP 9: 在 beforeRouteUpdate 時要再重新取得使用者資料
   beforeRouteUpdate (to, from, next) {
     const { id } = to.params
     this.fetchUser(id)
     next()
   },
   methods: {
-    // STEP 2：改成 async...await 語法
     async fetchUser (userId) {
       try {
-        // STEP 3: 呼叫 usersAPI
         const { data, statusText } = await usersAPI.get({
           userId
         })
@@ -103,7 +93,6 @@ export default {
           throw new Error(statusText)
         }
 
-        // STEP 4: 將取得的資料帶入 Vue
         this.user = {
           ...this.user,
           id: profile.id,
@@ -121,10 +110,8 @@ export default {
         this.followings = profile.Followings
         this.followers = profile.Followers
         this.favoritedRestaurants = profile.FavoritedRestaurants
-        // STEP 5: 處理 comment.Restaurant 可能有空值的情況
         this.comments = profile.Comments.filter(comment => comment.Restaurant)
       } catch (error) {
-        // STEP 6: 錯誤處理
         Toast.fire({
           type: 'error',
           title: '無法取得使用者資料，請稍後再試'

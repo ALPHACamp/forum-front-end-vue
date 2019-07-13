@@ -37,16 +37,19 @@
       <button
         type="submit"
         class="btn btn-primary"
+        :disabled="isProcessing"
       >
-        Submit
+        {{ isProcessing ? "資料更新中..." : "Submit" }}
       </button>
     </form>
   </div>
 </template>
 
 <script>
-// STEP 1: 匯入 mapState 方法
 import { mapState } from 'vuex'
+// STEP 1: import usersAPI and Toast
+import usersAPI from './../apis/users'
+import { Toast } from './../utils/helpers'
 
 export default {
   data () {
@@ -54,21 +57,20 @@ export default {
       id: 0,
       image: '',
       name: '',
-      email: ''
+      email: '',
+      // STEP 6: 新增並使用 isProcessing 屬性
+      isProcessing: false
     }
   },
-  // STEP 2: 將 currentUser 的資料從 Vuex 中取出
   computed: {
     ...mapState(['currentUser'])
   },
-  // STEP 4: 透過 watch 監控 currentUser 有無變化
   watch: {
     currentUser (user) {
       this.setUser()
     }
   },
   created () {
-    // STEP 5: 若使用者嘗試直接從路由進入其他使用者的 edit 頁
     const { id } = this.$route.params
     if (id.toString() !== this.currentUser.id.toString()) {
       this.$router.push({ name: 'not-found' })
@@ -77,7 +79,6 @@ export default {
 
     this.setUser()
   },
-  // STEP 6: 路由改變時重新抓取資料
   beforeRouteUpdate (to, from, next) {
     const { id } = to.params
     if (id.toString() !== this.currentUser.id.toString()) {
@@ -89,7 +90,6 @@ export default {
     next()
   },
   methods: {
-    // STEP 3: 將 currentUser 的資料帶入該組件的 Vue 資料內
     setUser () {
       this.id = this.currentUser.id
       this.image = this.currentUser.image
@@ -103,12 +103,41 @@ export default {
       const imageURL = window.URL.createObjectURL(files[0])
       this.image = imageURL
     },
-    handleSubmit (e) {
+    // STEP 2: 改成 async...await 語法
+    async handleSubmit (e) {
+      // STEP 5: 避免漏填
+      if (!this.name) {
+        Toast.fire({
+          type: 'warning',
+          title: '您尚未填寫姓名'
+        })
+        return
+      }
+
       const form = e.target
       const formData = new FormData(form)
-      // TODO: 將資料透過 API 傳送到後端伺服器...
-      for (let [name, value] of formData.entries()) {
-        console.log(name + ': ' + value)
+
+      try {
+        this.isProcessing = true
+
+        // STEP 3: 呼叫 API 更新使用者資料
+        const { data, statusText } = await usersAPI.update({
+          userId: this.id,
+          formData
+        })
+
+        if (statusText !== 'OK' || data.status !== 'success') {
+          throw new Error(statusText)
+        }
+
+        // STEP 4: 更新完成後轉址到使用者詳細頁
+        this.$router.push({ name: 'user', params: { id: this.id } })
+      } catch (error) {
+        this.isProcessing = false
+        Toast.fire({
+          type: 'error',
+          title: '無法更新使用者資料，請稍後再試'
+        })
       }
     }
   }

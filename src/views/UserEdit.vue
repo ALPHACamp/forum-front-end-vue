@@ -45,14 +45,8 @@
 </template>
 
 <script>
-const dummyData = {
-  profile: {
-    id: 1,
-    name: 'root',
-    email: 'root@example.com',
-    image: 'https://i.imgur.com/JtQJRMZ.png'
-  }
-}
+// STEP 1: 匯入 mapState 方法
+import { mapState } from 'vuex'
 
 export default {
   data () {
@@ -63,20 +57,44 @@ export default {
       email: ''
     }
   },
+  // STEP 2: 將 currentUser 的資料從 Vuex 中取出
+  computed: {
+    ...mapState(['currentUser'])
+  },
+  // STEP 4: 透過 watch 監控 currentUser 有無變化
+  watch: {
+    currentUser (user) {
+      this.setUser()
+    }
+  },
   created () {
+    // STEP 5: 若使用者嘗試直接從路由進入其他使用者的 edit 頁
     const { id } = this.$route.params
+    if (id.toString() !== this.currentUser.id.toString()) {
+      this.$router.push({ name: 'not-found' })
+      return
+    }
 
-    // TODO: 判斷若使用者試圖從路由去修改其他使用者的資料，則轉址
+    this.setUser()
+  },
+  // STEP 6: 路由改變時重新抓取資料
+  beforeRouteUpdate (to, from, next) {
+    const { id } = to.params
+    if (id.toString() !== this.currentUser.id.toString()) {
+      this.$router.push({ name: 'not-found' })
+      return
+    }
 
-    this.fetchUser(id)
+    this.setUser()
+    next()
   },
   methods: {
-    fetchUser (userId) {
-      const { profile } = dummyData
-      this.id = profile.id
-      this.image = profile.image
-      this.name = profile.name
-      this.email = profile.email
+    // STEP 3: 將 currentUser 的資料帶入該組件的 Vue 資料內
+    setUser () {
+      this.id = this.currentUser.id
+      this.image = this.currentUser.image
+      this.name = this.currentUser.name
+      this.email = this.currentUser.email
     },
     handleFileChange (e) {
       const files = e.target.files

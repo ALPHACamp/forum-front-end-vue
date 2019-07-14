@@ -42,8 +42,10 @@ export default new Vuex.Store({
           image: profile.image,
           isAdmin: profile.isAdmin
         })
+        return true
       } catch (error) {
         console.error('can not fetch user information')
+        return false
       }
     }
   }

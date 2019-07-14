@@ -96,13 +96,10 @@ export default {
           throw new Error(statusText)
         }
 
-        this.$store.commit('setCurrentUser', {
-          currentUser: data.user,
-          token: data.token
-        })
-
         // 將 token 存放在 localStorage 內
         localStorage.setItem('token', data.token)
+
+        this.$store.commit('setCurrentUser', data.user)
 
         // 成功登入後轉址到餐聽首頁
         this.$router.push('/restaurants')

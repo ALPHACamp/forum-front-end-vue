@@ -109,8 +109,6 @@ const router = new Router({
 })
 
 router.beforeEach(async (to, from, next) => {
-  console.log('from.name', from.name)
-  console.log('to.name', to.name)
   // 從 localStorage 取出 token
   const token = localStorage.getItem('token')
   // 預設是尚未驗證
@@ -124,7 +122,6 @@ router.beforeEach(async (to, from, next) => {
 
   // 如果 token 無效則轉址到登入頁
   if (!isAuthenticated && to.name !== 'sign-in') {
-    console.log('next to signin')
     next('/signin')
     return
   }

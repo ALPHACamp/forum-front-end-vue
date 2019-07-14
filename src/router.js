@@ -109,15 +109,12 @@ const router = new Router({
 })
 
 router.beforeEach(async (to, from, next) => {
-  // 從 localStorage 取出 token
-  const token = localStorage.getItem('token')
-  // 預設是尚未驗證
-  let isAuthenticated = false
+  const tokenInLocalStorage = localStorage.getItem('token')
+  const tokenInStore = store.state.token
+  let isAuthenticated = store.state.isAuthenticated
 
-  // 如果有 token 的話才驗證
-  if (token) {
-    // 取得驗證成功與否
-    isAuthenticated = await store.dispatch('fetchCurrentUser', { token })
+  if (tokenInLocalStorage && tokenInLocalStorage !== tokenInStore) {
+    isAuthenticated = await store.dispatch('fetchCurrentUser')
   }
 
   // 如果 token 無效則轉址到登入頁

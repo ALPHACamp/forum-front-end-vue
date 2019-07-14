@@ -96,7 +96,10 @@ export default {
           throw new Error(statusText)
         }
 
-        this.$store.commit('setCurrentUser', data.user)
+        this.$store.commit('setCurrentUser', {
+          currentUser: data.user,
+          token: data.token
+        })
 
         // 將 token 存放在 localStorage 內
         localStorage.setItem('token', data.token)
@@ -109,7 +112,7 @@ export default {
 
         Toast.fire({
           type: 'warning',
-          title: '請確認您輸入的帳號密碼錯誤'
+          title: '您輸入的帳號或密碼有誤'
         })
       }
     }

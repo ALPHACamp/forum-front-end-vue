@@ -49,53 +49,10 @@
 </template>
 
 <script>
-import AdminNav from '@/components/AdminNav'
-
-const dummyData = {
-  users: [
-    {
-      id: 1,
-      name: 'root',
-      email: 'root@example.com',
-      password: '$2a$10$3.cGoUF1lkEfQ2Oi57VpC.xVU3/8NS6yJzBQ0VJKV9AeW0e1trmmS',
-      image: 'https://i.imgur.com/JtQJRMZ.png',
-      isAdmin: true,
-      createdAt: '2019-06-22T09:00:43.000Z',
-      updatedAt: '2019-06-23T01:15:48.000Z'
-    },
-    {
-      id: 2,
-      name: 'user1',
-      email: 'user1@example.com',
-      password: '$2a$10$0ISHJI48xu/VRNVmEeycFe8v5ChyT305f8KaJVIhumu7M/eKAikkm',
-      image: 'https://i.imgur.com/XooCt5K.png',
-      isAdmin: false,
-      createdAt: '2019-06-22T09:00:43.000Z',
-      updatedAt: '2019-06-23T01:16:31.000Z'
-    },
-    {
-      id: 3,
-      name: 'user2',
-      email: 'user2@example.com',
-      password: '$2a$10$0Izt5W6Q4iphLq1ORgsKQu9jbEFdRD3.UaX/HQQg0M4Hp8yWV.XuS',
-      image: 'https://i.imgur.com/1T9ddHb.png',
-      isAdmin: false,
-      createdAt: '2019-06-22T09:00:43.000Z',
-      updatedAt: '2019-06-23T01:16:52.000Z'
-    }
-  ]
-}
-
-const dummyUser = {
-  currentUser: {
-    id: 1,
-    name: '管理者',
-    email: 'root@example.com',
-    image: 'https://i.pravatar.cc/300',
-    isAdmin: true
-  },
-  isAuthenticated: true
-}
+import { mapState } from 'vuex'
+import AdminNav from './../components/AdminNav'
+import adminAPI from './../apis/admin'
+import { Toast } from './../utils/helpers'
 
 export default {
   components: {
@@ -103,28 +60,60 @@ export default {
   },
   data () {
     return {
-      users: [],
-      currentUser: dummyUser.currentUser
+      users: []
     }
+  },
+  computed: {
+    ...mapState(['currentUser'])
   },
   created () {
     this.fetchUser()
   },
   methods: {
-    fetchUser () {
-      this.users = dummyData.users
-    },
-    toggleUserRole ({ userId, isAdmin }) {
-      this.users = this.users.map(user => {
-        if (user.id !== userId) {
-          return user
+    async fetchUser () {
+      try {
+        const { data, statusText } = await adminAPI.users.get()
+
+        if (statusText !== 'OK') {
+          throw new Error(statusText)
         }
 
-        return {
-          ...user,
-          isAdmin: !isAdmin
+        this.users = data.users
+      } catch (error) {
+        Toast.fire({
+          type: 'error',
+          title: '無法取得會員資料，請稍後再試'
+        })
+      }
+    },
+    async toggleUserRole ({ userId, isAdmin }) {
+      try {
+        const willBeAdmin = !isAdmin
+        const { data, statusText } = await adminAPI.users.update({
+          userId,
+          isAdmin: willBeAdmin.toString()
+        })
+
+        if (statusText !== 'OK' || data.status !== 'success') {
+          throw new Error(statusText)
         }
-      })
+
+        this.users = this.users.map(user => {
+          if (user.id !== userId) {
+            return user
+          }
+
+          return {
+            ...user,
+            isAdmin: willBeAdmin
+          }
+        })
+      } catch (error) {
+        Toast.fire({
+          type: 'error',
+          title: '無法更新會員角色，請稍後再試'
+        })
+      }
     }
   }
 }

@@ -1,8 +1,11 @@
 import { apiHelper } from './../utils/helpers'
 
 export default {
-  get ({ userId = '' } = {}) {
+  get ({ userId }) {
     return apiHelper.get(`/users/${userId}`)
+  },
+  getCurrentUser () {
+    return apiHelper.get(`/get_current_user`)
   },
   update ({ userId, formData }) {
     return apiHelper.put(`/users/${userId}`, formData)

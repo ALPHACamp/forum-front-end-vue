@@ -1,0 +1,128 @@
+* {
+  font-size: 15px;
+  font-weight: normal;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto,
+    Oxygen-Sans, Ubuntu, Cantarell, 'Helvetica Neue', '微軟正黑體', Helvetica,
+    Arial, sans-serif;
+  line-height: 1.5;
+  color: #4d4d4d;
+  outline: none;
+}
+
+a {
+  color: #bd2333;
+  transition: all 0.3s ease-in-out;
+}
+
+a:hover {
+  color: #bd2333;
+}
+
+.table td,
+.table th {
+  vertical-align: middle;
+}
+
+.page-link:focus,
+.form-control:focus,
+.btn,
+.navbar-dark .navbar-toggler {
+  outline: none;
+  box-shadow: none;
+}
+
+.form-control:focus {
+  border: 1px solid rgba(0, 0, 0, 0.4);
+}
+
+.btn,
+.btn.btn-border:hover {
+  min-width: 85px;
+  padding: 7px 14px;
+  font-size: 14px;
+  color: white;
+  background-color: #bd2333;
+  border: 2px solid #bd2333;
+  transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out,
+    border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+}
+
+.btn-border,
+.btn:hover,
+.btn-primary:hover {
+  background: transparent;
+  color: #bd2333;
+  text-decoration: none;
+  border: 2px solid #bd2333;
+}
+
+.btn:focus {
+  box-shadow: none;
+}
+
+.btn-primary:not(:disabled):not(.disabled).active,
+.btn-primary:not(:disabled):not(.disabled):active,
+.show > .btn-primary.dropdown-toggle {
+  border: 2px solid #bd2333;
+  color: #bd2333;
+  background: transparent;
+}
+
+.btn-primary.disabled, .btn-primary:disabled {
+  color: #fff;
+  background-color: #bd2333;
+  border-color: #bd2333;
+}
+
+.btn-outline-success {
+  border-color: white;
+  border-width: 1px;
+}
+
+.btn-outline-success:hover {
+  color: rgba(255, 255, 255, 0.85);
+  border-color: rgba(255, 255, 255, 0.85);
+  border-width: 1px;
+}
+
+h1,
+.card-text {
+  font-family: serif;
+}
+
+.badge.badge-secondary {
+  color: inherit;
+  background-color: #e8e8e8;
+  padding: 6px;
+  font-size: 12.5px;
+}
+
+.card {
+  border: none;
+  box-shadow: -1px 4px 10px rgba(0, 0, 0, 0.06);
+}
+
+.card-text {
+  font-size: 17px;
+  line-height: 1.3;
+}
+
+.card-text.title-wrap {
+  margin: 0;
+}
+
+.card-text a {
+  font-family: inherit;
+  font-size: 24px;
+  line-height: 1.3;
+  color: #4d4d4d;
+}
+
+.card-text a:hover {
+  color: #bd2333;
+}
+
+.swal2-popup.swal2-toast {
+  box-shadow: none;
+  border: 1px solid #dadada;
+}

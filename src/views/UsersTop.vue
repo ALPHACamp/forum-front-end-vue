@@ -52,20 +52,14 @@ import NavTabs from './../components/NavTabs'
 import Spinner from './../components/Spinner'
 import usersAPI from './../apis/users'
 import { Toast } from './../utils/helpers'
+import { emptyImageFilter } from './../utils/mixins'
 
 export default {
   components: {
     NavTabs,
     Spinner
   },
-  filters: {
-    emptyImage (src) {
-      if (!src) {
-        return 'http://via.placeholder.com/300x300?text=No+Image'
-      }
-      return src
-    }
-  },
+  mixins: [emptyImageFilter],
   data () {
     return {
       users: [],

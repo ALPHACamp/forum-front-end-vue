@@ -3,7 +3,7 @@ import Swal from 'sweetalert2'
 
 const baseURL = process.env.NODE_ENV === 'production'
   ? 'https://forum-express-api.herokuapp.com/api'
-  : 'http://localhost:3000/api'
+  : 'https://forum-express-api.herokuapp.com/api'
 
 const axiosInstance = axios.create({
   baseURL

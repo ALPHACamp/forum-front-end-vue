@@ -1,9 +1,11 @@
 <template>
   <nav class="navbar navbar-expand-lg fixed-top navbar-dark bg-dark">
-    <a
+    <router-link
       class="navbar-brand"
-      href="/"
-    >餐廳評論網</a>
+      to="/"
+    >
+      餐廳評論網
+    </router-link>
     <button
       class="navbar-toggler"
       type="button"

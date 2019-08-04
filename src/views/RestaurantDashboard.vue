@@ -1,29 +1,37 @@
 <template>
   <div class="container py-5">
-    <div>
-      <h1>{{ restaurant.name }}</h1>
-      <p>[{{ restaurant.categoryName }}]</p>
-    </div>
+    <Spinner v-if="isLoading" />
 
-    <hr>
+    <template v-else>
+      <div>
+        <h1>{{ restaurant.name }}</h1>
+        <p>[{{ restaurant.categoryName }}]</p>
+      </div>
 
-    <ul>
-      <li>有 {{ restaurant.commentsLength }} 筆評論</li>
-      <li>有 {{ restaurant.favoritedUsersLength }} 人收藏這家餐廳</li>
-    </ul>
+      <hr>
 
-    <a
-      href="#"
-      @click="$router.back()"
-    >回上一頁</a>
+      <ul>
+        <li>有 {{ restaurant.commentsLength }} 筆評論</li>
+        <li>有 {{ restaurant.favoritedUsersLength }} 人收藏這家餐廳</li>
+      </ul>
+
+      <a
+        href="#"
+        @click="$router.back()"
+      >回上一頁</a>
+    </template>
   </div>
 </template>
 
 <script>
 import restaurantsAPI from './../apis/restaurants'
+import Spinner from './../components/Spinner'
 import { Toast } from './../utils/helpers'
 
 export default {
+  components: {
+    Spinner
+  },
   data () {
     return {
       restaurant: {
@@ -33,7 +41,8 @@ export default {
         commentsLength: 0,
         favoritedUsersLength: 0,
         likedUsersLength: 0
-      }
+      },
+      isLoading: true
     }
   },
   created () {
@@ -48,6 +57,7 @@ export default {
   methods: {
     async fetchRestaurant (restaurantId) {
       try {
+        this.isLoading = true
         const {
           data: { restaurant },
           statusText
@@ -68,7 +78,9 @@ export default {
           favoritedUsersLength: restaurant.FavoritedUsers.length,
           likedUsersLength: restaurant.LikedUsers.length
         }
+        this.isLoading = false
       } catch (error) {
+        this.isLoading = false
         Toast.fire({
           type: 'error',
           title: '無法取得餐廳資料，請稍後再試'

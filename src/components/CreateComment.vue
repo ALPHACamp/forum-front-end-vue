@@ -1,6 +1,6 @@
 <template>
   <form @submit.stop.prevent="handleSubmit">
-    <div class="form-group">
+    <div class="form-group mb-4">
       <label for="text">留下評論：</label>
       <textarea
         v-model="text"
@@ -9,7 +9,12 @@
         name="text"
       />
     </div>
-    <div class="text-right">
+    <div class="d-flex align-items-center justify-content-between">
+      <a
+        href="#"
+        @click="$router.back()"
+      >回上一頁</a>
+
       <button
         type="submit"
         class="btn btn-primary mr-0"

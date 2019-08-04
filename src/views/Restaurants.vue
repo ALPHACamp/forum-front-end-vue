@@ -1,25 +1,30 @@
 <template>
   <div class="container py-5">
     <NavTabs />
+
     <!-- 餐廳類別標籤 RestaurantsNavPills -->
     <RestaurantsNavPills :categories="categories" />
 
-    <div class="row">
-      <!-- 餐廳卡片 RestaurantCard-->
-      <RestaurantCard
-        v-for="restaurant in restaurants"
-        :key="restaurant.id"
-        :initial-restaurant="restaurant"
-      />
-    </div>
+    <Spinner v-if="isLoading" />
 
-    <!-- 分頁標籤 RestaurantPagination -->
-    <RestaurantsPagination
-      v-if="totalPage > 1"
-      :category-id="categoryId"
-      :current-page="currentPage"
-      :total-page="totalPage"
-    />
+    <template v-else>
+      <div class="row">
+        <!-- 餐廳卡片 RestaurantCard-->
+        <RestaurantCard
+          v-for="restaurant in restaurants"
+          :key="restaurant.id"
+          :initial-restaurant="restaurant"
+        />
+      </div>
+
+      <!-- 分頁標籤 RestaurantPagination -->
+      <RestaurantsPagination
+        v-if="totalPage > 1"
+        :category-id="categoryId"
+        :current-page="currentPage"
+        :total-page="totalPage"
+      />
+    </template>
   </div>
 </template>
 
@@ -28,6 +33,7 @@ import NavTabs from './../components/NavTabs'
 import RestaurantCard from './../components/RestaurantCard'
 import RestaurantsNavPills from './../components/RestaurantsNavPills'
 import RestaurantsPagination from './../components/RestaurantsPagination'
+import Spinner from './../components/Spinner'
 import restaurantsAPI from './../apis/restaurants'
 import { Toast } from './../utils/helpers'
 
@@ -36,7 +42,8 @@ export default {
     NavTabs,
     RestaurantCard,
     RestaurantsNavPills,
-    RestaurantsPagination
+    RestaurantsPagination,
+    Spinner
   },
   data () {
     return {
@@ -44,7 +51,8 @@ export default {
       categoryId: '',
       currentPage: 1,
       restaurants: [],
-      totalPage: 0
+      totalPage: 0,
+      isLoading: true
     }
   },
   created () {
@@ -59,6 +67,7 @@ export default {
   methods: {
     async fetchRestaurants ({ page = 1, categoryId = '' }) {
       try {
+        this.isLoading = true
         const { data, statusText } = await restaurantsAPI.getRestaurants({
           page,
           categoryId
@@ -73,7 +82,9 @@ export default {
         this.currentPage = data.page
         this.restaurants = data.restaurants
         this.totalPage = data.totalPage.length
+        this.isLoading = false
       } catch (error) {
+        this.isLoading = false
         Toast.fire({
           type: 'error',
           title: '無法取得餐廳資料，請稍後再試'

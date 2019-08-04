@@ -2,7 +2,11 @@
   <div class="container py-5">
     <AdminNav />
 
-    <table class="table">
+    <Spinner v-if="isLoading" />
+    <table
+      v-else
+      class="table"
+    >
       <thead class="thead-dark">
         <tr>
           <th scope="col">
@@ -51,16 +55,19 @@
 <script>
 import { mapState } from 'vuex'
 import AdminNav from './../components/AdminNav'
+import Spinner from './../components/Spinner'
 import adminAPI from './../apis/admin'
 import { Toast } from './../utils/helpers'
 
 export default {
   components: {
-    AdminNav
+    AdminNav,
+    Spinner
   },
   data () {
     return {
-      users: []
+      users: [],
+      isLoading: true
     }
   },
   computed: {
@@ -79,7 +86,9 @@ export default {
         }
 
         this.users = data.users
+        this.isLoading = false
       } catch (error) {
+        this.isLoading = false
         Toast.fire({
           type: 'error',
           title: '無法取得會員資料，請稍後再試'

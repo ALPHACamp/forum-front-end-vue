@@ -1,5 +1,9 @@
 <template>
-  <table class="table">
+  <Spinner v-if="isLoading" />
+  <table
+    v-else
+    class="table"
+  >
     <thead class="thead-dark">
       <tr>
         <th scope="col">
@@ -64,12 +68,17 @@
 
 <script>
 import adminAPI from './../apis/admin'
+import Spinner from './../components/Spinner'
 import { Toast } from './../utils/helpers'
 
 export default {
+  components: {
+    Spinner
+  },
   data () {
     return {
-      restaurants: []
+      restaurants: [],
+      isLoading: true
     }
   },
   created () {
@@ -85,7 +94,9 @@ export default {
         }
 
         this.restaurants = data.restaurants
+        this.isLoading = false
       } catch (error) {
+        this.isLoading = false
         Toast.fire({
           type: 'error',
           title: '無法取得餐廳，請稍後再試'

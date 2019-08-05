@@ -29,7 +29,7 @@
               <h5 class="card-title">
                 {{ restaurant.name }}
               </h5>
-              <span class="badge badge-secondary">收藏數：{{ restaurant.FavoritedUsers.length }}</span>
+              <span class="badge badge-secondary">收藏數：{{ restaurant.FavoriteCount }}</span>
               <p class="card-text">
                 {{ restaurant.description }}
               </p>
@@ -114,16 +114,19 @@ export default {
           throw new Error(statusText)
         }
 
-        this.restaurants = this.restaurants.map(restaurant => {
-          if (restaurant.id !== restaurantId) {
-            return restaurant
-          }
+        this.restaurants = this.restaurants
+          .map(restaurant => {
+            if (restaurant.id !== restaurantId) {
+              return restaurant
+            }
 
-          return {
-            ...restaurant,
-            isFavorited: true
-          }
-        })
+            return {
+              ...restaurant,
+              FavoriteCount: restaurant.FavoriteCount + 1,
+              isFavorited: true
+            }
+          })
+          .sort((a, b) => b.FavoriteCount - a.FavoriteCount)
       } catch (error) {
         Toast.fire({
           type: 'error',
@@ -141,16 +144,19 @@ export default {
           throw new Error(statusText)
         }
 
-        this.restaurants = this.restaurants.map(restaurant => {
-          if (restaurant.id !== restaurantId) {
-            return restaurant
-          }
+        this.restaurants = this.restaurants
+          .map(restaurant => {
+            if (restaurant.id !== restaurantId) {
+              return restaurant
+            }
 
-          return {
-            ...restaurant,
-            isFavorited: false
-          }
-        })
+            return {
+              ...restaurant,
+              FavoriteCount: restaurant.FavoriteCount - 1,
+              isFavorited: false
+            }
+          })
+          .sort((a, b) => b.FavoriteCount - a.FavoriteCount)
       } catch (error) {
         Toast.fire({
           type: 'error',

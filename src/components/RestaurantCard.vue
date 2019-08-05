@@ -3,7 +3,7 @@
     <div class="card mb-4">
       <img
         class="card-img-top"
-        :src="restaurant.image"
+        :src="restaurant.image | emptyImage"
         alt="Card image cap"
         width="286px"
         height="180px"
@@ -66,8 +66,10 @@
 <script>
 import usersAPI from './../apis/users'
 import { Toast } from './../utils/helpers'
+import { emptyImageFilter } from './../utils/mixins'
 
 export default {
+  mixins: [emptyImageFilter],
   props: {
     initialRestaurant: {
       type: Object,

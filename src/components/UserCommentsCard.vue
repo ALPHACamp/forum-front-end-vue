@@ -13,7 +13,7 @@
           :src="comment.Restaurant.image | emptyImage"
           width="60"
           height="60"
-          class="mr-1"
+          class="mr-1 mb-1"
         >
       </router-link>
     </div>

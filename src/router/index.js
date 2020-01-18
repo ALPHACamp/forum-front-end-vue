@@ -12,6 +12,11 @@ const routes = [
     component: SignIn
   },
   {
+    path: '/signup',
+    name: 'sign-up',
+    component: () => import('../views/SignUp.vue')
+  },
+  {
     path: '*',
     name: 'not-found',
     component: NotFound

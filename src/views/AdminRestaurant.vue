@@ -7,7 +7,9 @@
     >
       <div class="col-md-12">
         <h1>{{ restaurant.name }}</h1>
-        <p>[{{ restaurant.categoryName }}]</p>
+        <span class="badge badge-secondary mt-1 mb-3">
+          {{ restaurant.categoryName }}
+        </span>
       </div>
       <div class="col-md-4">
         <img
@@ -46,7 +48,7 @@
 </template>
 
 <script>
-import { emptyImageFilter } from './../utils/mixins'
+import { emptyImageFilter, categoryFilter } from './../utils/mixins'
 import Spinner from './../components/Spinner'
 import adminAPI from './../apis/admin'
 import { Toast } from './../utils/helpers'
@@ -55,7 +57,7 @@ export default {
   components: {
     Spinner
   },
-  mixins: [emptyImageFilter],
+  mixins: [emptyImageFilter, categoryFilter],
   data () {
     return {
       restaurant: {
@@ -100,7 +102,7 @@ export default {
           ...this.restaurant,
           id: restaurant.id,
           name: restaurant.name,
-          categoryName: restaurant.Category.name,
+          categoryName: this.$options.filters.formatCategoryName(restaurant.Category),
           image: restaurant.image,
           openingHours: restaurant.opening_hours,
           tel: restaurant.tel,

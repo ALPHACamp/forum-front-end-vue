@@ -27,11 +27,13 @@
 import restaurantsAPI from './../apis/restaurants'
 import Spinner from './../components/Spinner'
 import { Toast } from './../utils/helpers'
+import { categoryFilter } from './../utils/mixins'
 
 export default {
   components: {
     Spinner
   },
+  mixins: [categoryFilter],
   data () {
     return {
       restaurant: {
@@ -73,7 +75,7 @@ export default {
           ...this.restaurant,
           id: restaurant.id,
           name: restaurant.name,
-          categoryName: restaurant.Category.name,
+          categoryName: this.$options.filters.formatCategoryName(restaurant.Category),
           commentsLength: restaurant.Comments.length,
           favoritedUsersLength: restaurant.FavoritedUsers.length,
           likedUsersLength: restaurant.LikedUsers.length

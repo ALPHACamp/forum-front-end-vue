@@ -28,6 +28,7 @@ import CreateComment from './../components/CreateComment.vue'
 import Spinner from './../components/Spinner.vue'
 import restaurantsAPI from './../apis/restaurants'
 import { Toast } from './../utils/helpers'
+import { categoryFilter } from './../utils/mixins'
 
 export default {
   components: {
@@ -36,6 +37,7 @@ export default {
     CreateComment,
     Spinner
   },
+  mixins: [categoryFilter],
   data () {
     return {
       restaurant: {
@@ -81,7 +83,7 @@ export default {
         this.restaurant = {
           id: data.restaurant.id,
           name: data.restaurant.name,
-          categoryName: data.restaurant.Category.name,
+          categoryName: this.$options.filters.formatCategoryName(data.restaurant.Category),
           image: data.restaurant.image,
           openingHours: data.restaurant.opening_hours,
           tel: data.restaurant.tel,

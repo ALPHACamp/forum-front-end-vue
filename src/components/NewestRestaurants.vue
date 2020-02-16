@@ -14,7 +14,7 @@
           >
             {{ restaurant.name }}
           </router-link>
-          <small>&nbsp;{{ restaurant.Category.name }}</small>
+          <small>{{ restaurant.Category | formatCategoryName }}</small>
         </h4>
         <p>{{ restaurant.description }}</p>
         {{ restaurant.createdAt | fromNow }}
@@ -25,10 +25,10 @@
 </template>
 
 <script>
-import { fromNowFilter } from './../utils/mixins'
+import { fromNowFilter, categoryFilter } from './../utils/mixins'
 
 export default {
-  mixins: [fromNowFilter],
+  mixins: [fromNowFilter, categoryFilter],
   props: {
     restaurants: {
       type: Array,
@@ -37,3 +37,9 @@ export default {
   }
 }
 </script>
+
+<style scoped>
+small {
+  font-size: 10px;
+}
+</style>

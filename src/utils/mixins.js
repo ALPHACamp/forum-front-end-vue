@@ -15,3 +15,11 @@ export const emptyImageFilter = {
     }
   }
 }
+
+export const categoryFilter = {
+  filters: {
+    formatCategoryName (Category) {
+      return Category ? Category.name : '未分類'
+    }
+  }
+}

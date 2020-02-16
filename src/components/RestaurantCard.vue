@@ -16,7 +16,7 @@
             {{ restaurant.name }}
           </router-link>
         </p>
-        <span class="badge badge-secondary">{{ restaurant.Category.name }}</span>
+        <span class="badge badge-secondary">{{ restaurant.Category | formatCategoryName }}</span>
         <p class="card-text text-truncate">
           {{ restaurant.description }}
         </p>
@@ -66,10 +66,10 @@
 <script>
 import usersAPI from './../apis/users'
 import { Toast } from './../utils/helpers'
-import { emptyImageFilter } from './../utils/mixins'
+import { emptyImageFilter, categoryFilter } from './../utils/mixins'
 
 export default {
-  mixins: [emptyImageFilter],
+  mixins: [emptyImageFilter, categoryFilter],
   props: {
     initialRestaurant: {
       type: Object,

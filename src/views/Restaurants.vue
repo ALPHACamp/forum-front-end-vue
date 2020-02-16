@@ -6,6 +6,11 @@
 
     <div class="row">
       <!-- RestaurantCard -->
+      <RestaurantCard
+        v-for="restaurant in restaurants"
+        :key="restaurant.id"
+        :initial-restaurant="restaurant"
+      />
     </div>
 
     <!-- RestaurantsPagination -->
@@ -14,6 +19,7 @@
 
 <script>
 import NavTabs from './../components/NavTabs'
+import RestaurantCard from './../components/RestaurantCard'
 
 const dummyData = {
   restaurants: [
@@ -241,7 +247,8 @@ const dummyData = {
 export default {
   name: 'Restaurants',
   components: {
-    NavTabs
+    NavTabs,
+    RestaurantCard
   },
   data () {
     return {

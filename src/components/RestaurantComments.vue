@@ -13,6 +13,7 @@
           v-if="currentUser.isAdmin"
           type="button"
           class="btn btn-danger float-right"
+          @click.stop.prevent="handleDeleteButtonClick(comment.id)"
         >
           Delete
         </button>
@@ -56,6 +57,15 @@ export default {
   data () {
     return {
       currentUser: dummyUser.currentUser
+    }
+  },
+  methods: {
+    handleDeleteButtonClick (commentId) {
+      console.log('handleDeleteButtonClick', commentId)
+
+      // TODO: 透過 API 請求伺服器刪掉該筆 comment...
+
+      this.$emit('after-delete-comment', commentId)
     }
   }
 }

@@ -25,19 +25,10 @@
 </template>
 
 <script>
-import moment from 'moment'
+import { fromNowFilter } from './../utils/mixins'
 
 export default {
-  filters: {
-    fromNow (datetime) {
-      if (!datetime) {
-        return '-'
-      }
-
-      // 使用 moment 回傳 fromNow 的時間
-      return moment(datetime).fromNow()
-    }
-  },
+  mixins: [fromNowFilter],
   props: {
     restaurants: {
       type: Array,

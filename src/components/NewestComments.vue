@@ -26,18 +26,10 @@
 </template>
 
 <script>
-import moment from 'moment'
-export default {
-  filters: {
-    fromNow (datetime) {
-      if (!datetime) {
-        return '-'
-      }
+import { fromNowFilter } from './../utils/mixins'
 
-      // 使用 moment 回傳 fromNow 的時間
-      return moment(datetime).fromNow()
-    }
-  },
+export default {
+  mixins: [fromNowFilter],
   props: {
     comments: {
       type: Array,

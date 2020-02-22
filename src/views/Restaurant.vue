@@ -7,12 +7,14 @@
     />
     <hr>
     <!-- 餐廳評論 RestaurantComments -->
+    <RestaurantComments :restaurant-comments="restaurantComments" />
     <!-- 新增評論 CreateComment -->
   </div>
 </template>
 
 <script>
 import RestaurantDetail from './../components/RestaurantDetail'
+import RestaurantComments from './../components/RestaurantComments'
 
 const dummyData = {
   restaurant: {
@@ -134,7 +136,8 @@ const dummyData = {
 export default {
   name: 'Restaurant',
   components: {
-    RestaurantDetail
+    RestaurantDetail,
+    RestaurantComments
   },
   data () {
     return {

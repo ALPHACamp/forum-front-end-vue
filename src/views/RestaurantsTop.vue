@@ -19,7 +19,7 @@
           >
             <img
               class="card-img"
-              :src="restaurant.image"
+              :src="restaurant.image | emptyImage"
             >
           </router-link>
         </div>
@@ -65,6 +65,7 @@
 </template>
 
 <script>
+import { emptyImageFilter } from './../utils/mixins'
 import NavTabs from './../components/NavTabs'
 
 const dummyData = {
@@ -423,6 +424,7 @@ export default {
   components: {
     NavTabs
   },
+  mixins: [emptyImageFilter],
   data () {
     return {
       restaurants: []

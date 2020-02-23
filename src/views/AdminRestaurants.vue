@@ -1,6 +1,7 @@
 <template>
   <div class="container py-5">
     <!-- 後台導覽頁籤 AdminNav -->
+    <AdminNav />
 
     <a
       href="#"
@@ -14,8 +15,12 @@
 </template>
 
 <script>
+import AdminNav from './../components/AdminNav'
 
 export default {
-  name: 'AdminRestaurants'
+  name: 'AdminRestaurants',
+  components: {
+    AdminNav
+  }
 }
 </script>

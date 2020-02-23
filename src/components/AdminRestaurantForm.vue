@@ -1,5 +1,5 @@
 <template>
-  <form>
+  <form @submit.stop.prevent="handleSubmit">
     <div class="form-group">
       <label for="name">Name</label>
       <input
@@ -176,6 +176,11 @@ export default {
         const imageURL = window.URL.createObjectURL(files[0])
         this.restaurant.image = imageURL
       }
+    },
+    handleSubmit (e) {
+      const form = e.target
+      const formData = new FormData(form)
+      this.$emit('after-submit', formData)
     }
   }
 }

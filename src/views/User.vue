@@ -1,6 +1,11 @@
 <template>
   <div class="container py-5">
     <!-- UserProfileCard -->
+    <UserProfileCard
+      :user="user"
+      :is-current-user="currentUser.id === user.id"
+      :initial-is-followed="isFollowed"
+    />
 
     <div class="row">
       <div class="col-md-4">
@@ -18,6 +23,8 @@
 </template>
 
 <script>
+import UserProfileCard from './../components/UserProfileCard'
+
 const dummyData = {
   profile: {
     id: 2,
@@ -25,7 +32,7 @@ const dummyData = {
     email: 'user1@example.com',
     password: '$2a$10$ESv6iQjQ8oEe3/XGjw00PuSh1kjmG6Dkhd4YXa50boTlncJDxljAy',
     isAdmin: false,
-    image: null,
+    image: 'https://i.pravatar.cc/300',
     createdAt: '2019-11-20T06:25:42.685Z',
     updatedAt: '2019-11-21T09:55:30.970Z',
     Comments: [
@@ -1026,8 +1033,23 @@ const dummyData = {
   },
   isFollowed: true
 }
+
+const dummyUser = {
+  currentUser: {
+    id: 1,
+    name: '管理者',
+    email: 'root@example.com',
+    image: 'https://i.pravatar.cc/300',
+    isAdmin: true
+  },
+  isAuthenticated: true
+}
+
 export default {
   name: 'User',
+  components: {
+    UserProfileCard
+  },
   data () {
     return {
       user: {
@@ -1044,11 +1066,13 @@ export default {
       followings: [],
       followers: [],
       comments: [],
-      favoritedRestaurants: []
+      favoritedRestaurants: [],
+      currentUser: {}
     }
   },
   created () {
     this.fetchUser()
+    this.currentUser = dummyUser.currentUser
   },
   methods: {
     fetchUser (userId) {

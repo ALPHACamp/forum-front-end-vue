@@ -87,12 +87,20 @@
 
     <div class="form-group">
       <label for="image">Image</label>
+      <img
+        v-if="restaurant.image"
+        :src="restaurant.image"
+        class="d-block img-thumbnail mb-3"
+        width="200"
+        height="200"
+      >
       <input
         id="image"
         type="file"
         name="image"
         accept="image/*"
         class="form-control-file"
+        @change="handleFileChange"
       >
     </div>
 
@@ -157,6 +165,17 @@ export default {
   methods: {
     fetchCategories () {
       this.categories = dummyData.categories
+    },
+    handleFileChange (e) {
+      const { files } = e.target
+
+      if (files.length === 0) {
+        // 使用者沒有選擇上傳的檔案
+        this.restaurant.image = ''
+      } else {
+        const imageURL = window.URL.createObjectURL(files[0])
+        this.restaurant.image = imageURL
+      }
     }
   }
 }

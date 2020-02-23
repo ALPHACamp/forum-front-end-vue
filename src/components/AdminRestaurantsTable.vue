@@ -45,6 +45,7 @@
           <button
             type="button"
             class="btn btn-link"
+            @click.stop.prevent="deleteRestaurant(restaurant.id)"
           >
             Delete
           </button>
@@ -896,6 +897,9 @@ export default {
   methods: {
     fetchRestaurants () {
       this.restaurants = dummyData.restaurants
+    },
+    deleteRestaurant (restaurantId) {
+      this.restaurants = this.restaurants.filter(restaurant => restaurant.id !== restaurantId)
     }
   }
 }

@@ -11,16 +11,19 @@
     </a>
 
     <!-- 後台餐廳列表 AdminRestaurantsTable -->
+    <AdminRestaurantsTable />
   </div>
 </template>
 
 <script>
 import AdminNav from './../components/AdminNav'
+import AdminRestaurantsTable from './../components/AdminRestaurantsTable'
 
 export default {
   name: 'AdminRestaurants',
   components: {
-    AdminNav
+    AdminNav,
+    AdminRestaurantsTable
   }
 }
 </script>

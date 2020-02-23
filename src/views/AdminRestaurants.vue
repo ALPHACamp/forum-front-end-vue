@@ -3,12 +3,12 @@
     <!-- 後台導覽頁籤 AdminNav -->
     <AdminNav />
 
-    <a
-      href="#"
+    <router-link
+      to="/admin/restaurants/new"
       class="btn btn-primary mb-4"
     >
       New Restaurant
-    </a>
+    </router-link>
 
     <!-- 後台餐廳列表 AdminRestaurantsTable -->
     <AdminRestaurantsTable />

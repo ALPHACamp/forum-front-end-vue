@@ -17,6 +17,7 @@
       </div>
       <div class="col-md-8">
         <!-- UserCommentsCard -->
+        <UserCommentsCard :comments="comments" />
 
         <!-- UserFavoritedRestaurantsCard -->
       </div>
@@ -28,6 +29,7 @@
 import UserProfileCard from './../components/UserProfileCard'
 import UserFollowingsCard from './../components/UserFollowingsCard'
 import UserFollowersCard from './../components/UserFollowersCard'
+import UserCommentsCard from './../components/UserCommentsCard'
 
 const dummyData = {
   profile: {
@@ -1054,7 +1056,8 @@ export default {
   components: {
     UserProfileCard,
     UserFollowingsCard,
-    UserFollowersCard
+    UserFollowersCard,
+    UserCommentsCard
   },
   data () {
     return {
@@ -1111,7 +1114,14 @@ export default {
       this.followings = Followings
       this.followers = Followers
       this.favoritedRestaurants = FavoritedRestaurants
-      this.comments = Comments.filter(comment => comment.Restaurant)
+
+      const commentSet = new Set()
+      this.comments = Comments.filter(
+        comment =>
+          comment.Restaurant &&
+          !commentSet.has(comment.Restaurant.id) &&
+          commentSet.add(comment.Restaurant.id)
+      )
     }
   }
 }

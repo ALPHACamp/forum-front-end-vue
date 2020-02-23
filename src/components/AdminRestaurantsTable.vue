@@ -30,10 +30,12 @@
         <td>{{ restaurant.Category ? restaurant.Category.name : '未分類' }}</td>
         <td>{{ restaurant.name }}</td>
         <td class="d-flex justify-content-between">
-          <a
-            href="#"
+          <router-link
+            :to="{name: 'admin-restaurant', params: {id: restaurant.id }}"
             class="btn btn-link"
-          >Show</a>
+          >
+            Show
+          </router-link>
 
           <a
             href="#"

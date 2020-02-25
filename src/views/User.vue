@@ -35,7 +35,7 @@ import UserFavoritedRestaurantsCard from './../components/UserFavoritedRestauran
 
 const dummyData = {
   profile: {
-    id: 2,
+    id: 1,
     name: 'user1',
     email: 'user1@example.com',
     password: '$2a$10$ESv6iQjQ8oEe3/XGjw00PuSh1kjmG6Dkhd4YXa50boTlncJDxljAy',

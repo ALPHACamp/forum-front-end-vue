@@ -62,6 +62,8 @@
 </template>
 
 <script>
+import authorizationAPI from './../apis/authorization'
+
 export default {
   data () {
     return {
@@ -71,15 +73,19 @@ export default {
   },
   methods: {
     handleSubmit (e) {
-      const data = JSON.stringify({
+      authorizationAPI.signIn({
         email: this.email,
         password: this.password
+      }).then(response => {
+        const { data } = response
+
+        // 將伺服器回傳的 token 保存在 localStorage 中
+        localStorage.setItem('token', data.token)
+
+        // 成功登入後進行轉址
+        this.$router.push('/restaurants')
       })
-
-      // TODO: 向後端驗證使用者登入資訊是否合法
-      console.log('data', data)
     }
-
   }
 }
 </script>

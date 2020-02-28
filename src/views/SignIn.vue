@@ -40,6 +40,7 @@
 
       <button
         class="btn btn-lg btn-primary btn-block mb-3"
+        :disabled="isProcessing"
         type="submit"
       >
         Submit
@@ -68,7 +69,8 @@ export default {
   data () {
     return {
       email: '',
-      password: ''
+      password: '',
+      isProcessing: false
     }
   },
   methods: {
@@ -80,6 +82,8 @@ export default {
         })
         return
       }
+
+      this.isProcessing = true
 
       authorizationAPI
         .signIn({
@@ -100,6 +104,7 @@ export default {
           this.$router.push('/restaurants')
         })
         .catch(error => {
+          this.isProcessing = false
           this.password = ''
 
           // 顯示錯誤提示

@@ -74,47 +74,46 @@ export default {
     }
   },
   methods: {
-    handleSubmit (e) {
-      if (!this.email || !this.password) {
-        Toast.fire({
-          icon: 'warning',
-          title: '請填入 email 和 password'
-        })
-        return
-      }
+    async handleSubmit (e) {
+      try {
+        if (!this.email || !this.password) {
+          Toast.fire({
+            icon: 'warning',
+            title: '請填入 email 和 password'
+          })
+          return
+        }
 
-      this.isProcessing = true
+        this.isProcessing = true
 
-      authorizationAPI
-        .signIn({
+        const response = await authorizationAPI.signIn({
           email: this.email,
           password: this.password
         })
-        .then(response => {
-          const { data } = response
 
-          if (data.status !== 'success') {
-            throw new Error(data.message)
-          }
+        const { data } = response
 
-          // 將伺服器回傳的 token 保存在 localStorage 中
-          localStorage.setItem('token', data.token)
+        if (data.status !== 'success') {
+          throw new Error(data.message)
+        }
 
-          // 成功登入後進行轉址
-          this.$router.push('/restaurants')
+        // 將伺服器回傳的 token 保存在 localStorage 中
+        localStorage.setItem('token', data.token)
+
+        // 成功登入後進行轉址
+        this.$router.push('/restaurants')
+      } catch (error) {
+        this.isProcessing = false
+        this.password = ''
+
+        // 顯示錯誤提示
+        Toast.fire({
+          icon: 'warning',
+          title: '輸入的帳號密碼有誤'
         })
-        .catch(error => {
-          this.isProcessing = false
-          this.password = ''
 
-          // 顯示錯誤提示
-          Toast.fire({
-            icon: 'warning',
-            title: '輸入的帳號密碼有誤'
-          })
-
-          console.log('error', error)
-        })
+        console.log('error', error)
+      }
     }
   }
 }

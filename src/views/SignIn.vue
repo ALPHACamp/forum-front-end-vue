@@ -21,7 +21,6 @@
           placeholder="email"
           autocomplete="username"
           required
-          autofocus
         >
       </div>
 
@@ -63,6 +62,7 @@
 
 <script>
 import authorizationAPI from './../apis/authorization'
+import { Toast } from './../utils/helpers'
 
 export default {
   data () {
@@ -73,18 +73,43 @@ export default {
   },
   methods: {
     handleSubmit (e) {
-      authorizationAPI.signIn({
-        email: this.email,
-        password: this.password
-      }).then(response => {
-        const { data } = response
+      if (!this.email || !this.password) {
+        Toast.fire({
+          icon: 'warning',
+          title: '請填入 email 和 password'
+        })
+        return
+      }
 
-        // 將伺服器回傳的 token 保存在 localStorage 中
-        localStorage.setItem('token', data.token)
+      authorizationAPI
+        .signIn({
+          email: this.email,
+          password: this.password
+        })
+        .then(response => {
+          const { data } = response
 
-        // 成功登入後進行轉址
-        this.$router.push('/restaurants')
-      })
+          if (data.status !== 'success') {
+            throw new Error(data.message)
+          }
+
+          // 將伺服器回傳的 token 保存在 localStorage 中
+          localStorage.setItem('token', data.token)
+
+          // 成功登入後進行轉址
+          this.$router.push('/restaurants')
+        })
+        .catch(error => {
+          this.password = ''
+
+          // 顯示錯誤提示
+          Toast.fire({
+            icon: 'warning',
+            title: '輸入的帳號密碼有誤'
+          })
+
+          console.log('error', error)
+        })
     }
   }
 }

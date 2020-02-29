@@ -31,14 +31,17 @@
         <td>{{ restaurant.name }}</td>
         <td class="d-flex justify-content-between">
           <router-link
-            :to="{name: 'admin-restaurant', params: {id: restaurant.id }}"
+            :to="{ name: 'admin-restaurant', params: { id: restaurant.id } }"
             class="btn btn-link"
           >
             Show
           </router-link>
 
           <router-link
-            :to="{name: 'admin-restaurant-edit', params: { id: restaurant.id }}"
+            :to="{
+              name: 'admin-restaurant-edit',
+              params: { id: restaurant.id }
+            }"
             class="btn btn-link"
           >
             Edit
@@ -87,8 +90,30 @@ export default {
         })
       }
     },
-    deleteRestaurant (restaurantId) {
-      this.restaurants = this.restaurants.filter(restaurant => restaurant.id !== restaurantId)
+    async deleteRestaurant (restaurantId) {
+      try {
+        const { data } = await adminAPI.restaurants.delete({
+          restaurantId
+        })
+
+        if (data.status !== 'success') {
+          throw new Error(data.message)
+        }
+
+        this.restaurants = this.restaurants.filter(
+          restaurant => restaurant.id !== restaurantId
+        )
+
+        Toast.fire({
+          icon: 'success',
+          title: '刪除餐廳成功'
+        })
+      } catch (error) {
+        Toast.fire({
+          icon: 'error',
+          title: '無法刪除餐廳，請稍後再試'
+        })
+      }
     }
   }
 }

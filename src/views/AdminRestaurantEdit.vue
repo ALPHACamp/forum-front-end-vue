@@ -9,21 +9,8 @@
 
 <script>
 import AdminRestaurantForm from './../components/AdminRestaurantForm'
-
-const dummyData = {
-  restaurant: {
-    id: 2,
-    name: 'Kaci Koelpin',
-    tel: '083-343-7765',
-    address: '22769 Johnson Squares',
-    opening_hours: '08:00',
-    description:
-      'Sequi facere sit iusto molestiae dolores quibusdam dolores. Labore deleniti beatae id. Qui quidem quibusdam fugiat qui harum odit voluptas. Beatae asperiores exercitationem quia commodi. Provident magnam sed expedita quibusdam labore aliquid hic.',
-    image:
-      'https://loremflickr.com/320/240/restaurant,food/?random=22.957592747300982',
-    CategoryId: null
-  }
-}
+import adminAPI from './../apis/admin'
+import { Toast } from './../utils/helpers'
 
 export default {
   name: 'AdminRestaurantEdit',
@@ -49,29 +36,42 @@ export default {
     this.fetchRestaurant(id)
   },
   methods: {
-    fetchRestaurant (restaurantId) {
-      console.log('restaurantId', restaurantId)
-      const { restaurant } = dummyData
-      const {
-        id,
-        name,
-        tel,
-        address,
-        opening_hours: openingHours,
-        description,
-        image,
-        CategoryId: categoryId
-      } = restaurant
-      this.restaurant = {
-        ...this.restaurant,
-        id,
-        name,
-        tel,
-        address,
-        openingHours,
-        description,
-        image,
-        categoryId
+    async fetchRestaurant (restaurantId) {
+      try {
+        const { data } = await adminAPI.restaurants.getDetail({ restaurantId })
+
+        if (data.status === 'error') {
+          throw new Error(data.message)
+        }
+
+        const {
+          id,
+          name,
+          tel,
+          address,
+          opening_hours: openingHours,
+          description,
+          image,
+          CategoryId: categoryId
+        } = data.restaurant
+
+        this.restaurant = {
+          ...this.restaurant,
+          id,
+          name,
+          tel,
+          address,
+          openingHours,
+          description,
+          image,
+          categoryId
+        }
+      } catch (error) {
+        console.error(error.message)
+        Toast.fire({
+          icon: 'error',
+          title: '無法取得餐廳資料，請稍後再試'
+        })
       }
     },
     handleAfterSubmit (formData) {

@@ -1,5 +1,8 @@
 <template>
-  <form @submit.stop.prevent="handleSubmit">
+  <form
+    v-show="!isLoading"
+    @submit.stop.prevent="handleSubmit"
+  >
     <div class="form-group">
       <label for="name">Name</label>
       <input
@@ -114,34 +117,9 @@
 </template>
 
 <script>
-const dummyData = {
-  categories: [
-    {
-      id: 6,
-      name: '美式料理',
-      createdAt: '2019-11-20T06:25:42.917Z',
-      updatedAt: '2019-11-20T06:25:42.917Z'
-    },
-    {
-      id: 7,
-      name: '複合式料理',
-      createdAt: '2019-11-20T06:25:42.917Z',
-      updatedAt: '2019-11-20T06:25:42.917Z'
-    },
-    {
-      id: 109,
-      name: 'cool',
-      createdAt: '2019-12-17T11:36:08.937Z',
-      updatedAt: '2019-12-17T11:36:08.937Z'
-    },
-    {
-      id: 110,
-      name: '日式料理',
-      createdAt: '2020-01-12T16:58:30.105Z',
-      updatedAt: '2020-01-20T12:30:43.772Z'
-    }
-  ]
-}
+import adminAPI from './../apis/admin'
+import { Toast } from './../utils/helpers'
+
 export default {
   name: 'AdminRestaurantForm',
   props: {
@@ -165,15 +143,32 @@ export default {
       categories: [],
       restaurant: {
         ...this.initialRestaurant
-      }
+      },
+      isLoading: true
     }
   },
   created () {
     this.fetchCategories()
   },
   methods: {
-    fetchCategories () {
-      this.categories = dummyData.categories
+    async fetchCategories () {
+      try {
+        const { data } = await adminAPI.categories.get()
+
+        if (data.status === 'error') {
+          throw new Error(data.message)
+        }
+
+        this.categories = data.categories
+        this.isLoading = false
+      } catch (error) {
+        console.error(error.message)
+        this.isLoading = false
+        Toast.fire({
+          icon: 'error',
+          title: '無法取得餐廳類別，請稍後再試'
+        })
+      }
     },
     handleFileChange (e) {
       const { files } = e.target

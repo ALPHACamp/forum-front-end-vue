@@ -86,31 +86,57 @@ export default {
         })
       }
     },
-    addFollowing (userId) {
-      this.users = this.users.map(user => {
-        if (user.id !== userId) {
-          return user
-        } else {
-          return {
-            ...user,
-            followerCount: user.followerCount + 1,
-            isFollowed: true
-          }
+    async addFollowing (userId) {
+      try {
+        const { data } = await usersAPI.addFollowing({ userId })
+
+        if (data.status !== 'success') {
+          throw new Error(data.message)
         }
-      })
+
+        this.users = this.users.map(user => {
+          if (user.id !== userId) {
+            return user
+          } else {
+            return {
+              ...user,
+              followerCount: user.followerCount + 1,
+              isFollowed: true
+            }
+          }
+        })
+      } catch (error) {
+        Toast.fire({
+          icon: 'error',
+          title: '無法加入追蹤，請稍後再試'
+        })
+      }
     },
-    deleteFollowing (userId) {
-      this.users = this.users.map(user => {
-        if (user.id !== userId) {
-          return user
-        } else {
-          return {
-            ...user,
-            followerCount: user.followerCount - 1,
-            isFollowed: false
-          }
+    async deleteFollowing (userId) {
+      try {
+        const { data } = await usersAPI.deleteFollowing({ userId })
+
+        if (data.status !== 'success') {
+          throw new Error(data.message)
         }
-      })
+
+        this.users = this.users.map(user => {
+          if (user.id !== userId) {
+            return user
+          } else {
+            return {
+              ...user,
+              followerCount: user.followerCount - 1,
+              isFollowed: false
+            }
+          }
+        })
+      } catch (error) {
+        Toast.fire({
+          icon: 'error',
+          title: '無法取消追蹤，請稍後再試'
+        })
+      }
     }
   }
 }

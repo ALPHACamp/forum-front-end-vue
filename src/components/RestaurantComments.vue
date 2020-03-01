@@ -34,16 +34,9 @@
 
 <script>
 import { fromNowFilter } from './../utils/mixins'
-
-const dummyUser = {
-  currentUser: {
-    id: 1,
-    name: 'root1',
-    email: 'root@example.com',
-    isAdmin: true
-  },
-  isAuthenticated: true
-}
+import { mapState } from 'vuex'
+import commentsAPI from './../apis/comments'
+import { Toast } from './../utils/helpers'
 
 export default {
   name: 'RestaurantComments',
@@ -54,18 +47,33 @@ export default {
       required: true
     }
   },
-  data () {
-    return {
-      currentUser: dummyUser.currentUser
-    }
+  computed: {
+    ...mapState(['currentUser'])
   },
   methods: {
-    handleDeleteButtonClick (commentId) {
-      console.log('handleDeleteButtonClick', commentId)
+    async handleDeleteButtonClick (commentId) {
+      try {
+        this.isProcessing = true
+        const { data } = await commentsAPI.delete({ commentId })
 
-      // TODO: 透過 API 請求伺服器刪掉該筆 comment...
+        if (data.status === 'error') {
+          throw new Error(data.message)
+        }
 
-      this.$emit('after-delete-comment', commentId)
+        this.$emit('after-delete-comment', commentId)
+        Toast.fire({
+          icon: 'success',
+          title: '移除評論成功'
+        })
+        this.isProcessing = false
+      } catch (error) {
+        console.error(error.message)
+        this.isProcessing = false
+        Toast.fire({
+          icon: 'error',
+          title: '無法移除評論，請稍後再試'
+        })
+      }
     }
   }
 }

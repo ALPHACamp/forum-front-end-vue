@@ -77,7 +77,7 @@ export default {
       try {
         if (!this.email || !this.password) {
           Toast.fire({
-            type: 'warning',
+            icon: 'warning',
             title: '請填入 email 和 password'
           })
           return
@@ -108,7 +108,7 @@ export default {
         this.isProcessing = false
 
         Toast.fire({
-          type: 'warning',
+          icon: 'warning',
           title: '您輸入的帳號或密碼有誤'
         })
       }

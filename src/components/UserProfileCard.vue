@@ -109,7 +109,7 @@ export default {
         this.isFollowed = true
       } catch (error) {
         Toast.fire({
-          type: 'error',
+          icon: 'error',
           title: '無法加入追蹤，請稍後再試'
         })
       }
@@ -127,7 +127,7 @@ export default {
         this.isFollowed = false
       } catch (error) {
         Toast.fire({
-          type: 'error',
+          icon: 'error',
           title: '無法取消追蹤，請稍後再試'
         })
       }

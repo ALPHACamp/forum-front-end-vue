@@ -148,7 +148,7 @@ export default {
       } catch (error) {
         this.isLoading = false
         Toast.fire({
-          type: 'error',
+          icon: 'error',
           title: '無法取得餐廳類別，請稍後再試'
         })
       }
@@ -175,7 +175,7 @@ export default {
       } catch (error) {
         this.isProcessing = false
         Toast.fire({
-          type: 'error',
+          icon: 'error',
           title: '無法新增餐廳類別，請稍後再試'
         })
       }
@@ -194,7 +194,7 @@ export default {
         this.toggleIsEditing(categoryId)
       } catch (error) {
         Toast.fire({
-          type: 'error',
+          icon: 'error',
           title: '無法更新餐廳類別，請稍後再試'
         })
       }
@@ -215,7 +215,7 @@ export default {
         )
       } catch (error) {
         Toast.fire({
-          type: 'error',
+          icon: 'error',
           title: '無法刪除該餐廳類別，請稍後再試'
         })
       }

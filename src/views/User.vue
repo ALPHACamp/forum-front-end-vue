@@ -108,7 +108,7 @@ export default {
         this.comments = profile.Comments.filter(comment => comment.Restaurant)
       } catch (error) {
         Toast.fire({
-          type: 'error',
+          icon: 'error',
           title: '無法取得使用者資料，請稍後再試'
         })
       }

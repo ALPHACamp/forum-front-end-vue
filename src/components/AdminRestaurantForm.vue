@@ -202,7 +202,7 @@ export default {
       } catch (error) {
         this.isLoading = false
         Toast.fire({
-          type: 'error',
+          icon: 'error',
           title: '無法取得餐廳類別，請稍後再試'
         })
       }
@@ -218,13 +218,13 @@ export default {
     handleSubmit (e) {
       if (!this.restaurant.name) {
         Toast.fire({
-          type: 'warning',
+          icon: 'warning',
           title: '請填寫餐廳名稱'
         })
         return
       } else if (!this.restaurant.categoryId) {
         Toast.fire({
-          type: 'warning',
+          icon: 'warning',
           title: '請選擇餐廳類別'
         })
         return

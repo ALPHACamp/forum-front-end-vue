@@ -98,7 +98,7 @@ export default {
       } catch (error) {
         this.isLoading = false
         Toast.fire({
-          type: 'error',
+          icon: 'error',
           title: '無法取得餐廳，請稍後再試'
         })
       }
@@ -118,12 +118,12 @@ export default {
         )
 
         Toast.fire({
-          type: 'success',
+          icon: 'success',
           title: '刪除餐廳成功'
         })
       } catch (error) {
         Toast.fire({
-          type: 'error',
+          icon: 'error',
           title: '無法取得刪除餐廳，請稍後再試'
         })
       }

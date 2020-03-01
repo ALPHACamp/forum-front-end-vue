@@ -110,7 +110,7 @@ export default {
           !this.passwordCheck
         ) {
           Toast.fire({
-            type: 'warning',
+            icon: 'warning',
             title: '請確認已填寫所有欄位'
           })
           return
@@ -118,7 +118,7 @@ export default {
 
         if (this.password !== this.passwordCheck) {
           Toast.fire({
-            type: 'warning',
+            icon: 'warning',
             title: '兩次輸入的密碼不同'
           })
           this.passwordCheck = ''
@@ -139,7 +139,7 @@ export default {
         }
 
         Toast.fire({
-          type: 'success',
+          icon: 'success',
           title: data.message
         })
 
@@ -149,7 +149,7 @@ export default {
         this.isProcessing = false
 
         Toast.fire({
-          type: 'warning',
+          icon: 'warning',
           title: `無法註冊 - ${error.message}`
         })
       }

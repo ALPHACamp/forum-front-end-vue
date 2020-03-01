@@ -177,12 +177,29 @@ export default {
         })
       }
     },
-    deleteCategory (categoryId) {
-      // TODO: 透過 API 向後端伺服器刪除餐廳類別
+    async deleteCategory (categoryId) {
+      try {
+        const { data } = await adminAPI.categories.delete({ categoryId })
 
-      this.categories = this.categories.filter(
-        category => category.id !== categoryId
-      )
+        if (data.status === 'error') {
+          throw new Error(data.message)
+        }
+
+        this.categories = this.categories.filter(
+          category => category.id !== categoryId
+        )
+
+        Toast.fire({
+          icon: 'success',
+          title: '成功刪除該餐廳類別'
+        })
+      } catch (error) {
+        console.error(error.message)
+        Toast.fire({
+          icon: 'error',
+          title: '無法刪除該餐廳類別，請稍後再試'
+        })
+      }
     },
     async updateCategory ({ categoryId, name }) {
       try {

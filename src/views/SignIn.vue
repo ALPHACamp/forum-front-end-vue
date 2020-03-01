@@ -100,6 +100,9 @@ export default {
         // 將伺服器回傳的 token 保存在 localStorage 中
         localStorage.setItem('token', data.token)
 
+        // 透過 setCurrentUser 把使用者資料存到 Vuex 的 state 中
+        this.$store.commit('setCurrentUser', data.user)
+
         // 成功登入後進行轉址
         this.$router.push('/restaurants')
       } catch (error) {
@@ -112,7 +115,7 @@ export default {
           title: '輸入的帳號密碼有誤'
         })
 
-        console.log('error', error)
+        console.error(error.message)
       }
     }
   }

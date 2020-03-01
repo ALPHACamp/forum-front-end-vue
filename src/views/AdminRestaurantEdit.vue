@@ -59,7 +59,7 @@ export default {
       } catch (error) {
         this.isProcessing = false
         Toast.fire({
-          type: 'error',
+          icon: 'error',
           title: '無法建立餐廳，請稍後再試'
         })
       }
@@ -88,7 +88,7 @@ export default {
         }
       } catch (error) {
         Toast.fire({
-          type: 'error',
+          icon: 'error',
           title: '無法取得餐廳資料，請稍後再試'
         })
       }

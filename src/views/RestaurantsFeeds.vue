@@ -61,7 +61,7 @@ export default {
       } catch (error) {
         this.isLoading = false
         Toast.fire({
-          type: 'error',
+          icon: 'error',
           title: '無法取得最新動態，請稍後再試'
         })
       }

@@ -63,12 +63,12 @@ export default {
         this.$emit('after-delete-comment', commentId)
 
         Toast.fire({
-          type: 'success',
+          icon: 'success',
           title: '移除評論成功'
         })
       } catch (error) {
         Toast.fire({
-          type: 'error',
+          icon: 'error',
           title: '無法移除評論，請稍後再試'
         })
       }

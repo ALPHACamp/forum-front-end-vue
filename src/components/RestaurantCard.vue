@@ -102,7 +102,7 @@ export default {
       } catch (error) {
         this.isProcessing = false
         Toast.fire({
-          type: 'error',
+          icon: 'error',
           title: '無法將餐廳加入最愛，請稍後再試'
         })
       }
@@ -126,7 +126,7 @@ export default {
       } catch (error) {
         this.isProcessing = false
         Toast.fire({
-          type: 'error',
+          icon: 'error',
           title: '無法將餐廳從最愛移除，請稍後再試'
         })
       }
@@ -148,7 +148,7 @@ export default {
       } catch (error) {
         this.isProcessing = false
         Toast.fire({
-          type: 'error',
+          icon: 'error',
           title: '無法按讚，請稍後再試'
         })
       }
@@ -172,7 +172,7 @@ export default {
       } catch (error) {
         this.isProcessing = false
         Toast.fire({
-          type: 'error',
+          icon: 'error',
           title: '無法取消按讚，請稍後再試'
         })
       }

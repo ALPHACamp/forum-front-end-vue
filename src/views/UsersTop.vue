@@ -83,7 +83,7 @@ export default {
       } catch (error) {
         this.isLoading = false
         Toast.fire({
-          type: 'error',
+          icon: 'error',
           title: '無法取得美食達人，請稍後再試'
         })
       }
@@ -113,7 +113,7 @@ export default {
           .sort((a, b) => b.FollowerCount - a.FollowerCount)
       } catch (error) {
         Toast.fire({
-          type: 'error',
+          icon: 'error',
           title: '無法加入追蹤，請稍後再試'
         })
       }
@@ -143,7 +143,7 @@ export default {
           .sort((a, b) => b.FollowerCount - a.FollowerCount)
       } catch (error) {
         Toast.fire({
-          type: 'error',
+          icon: 'error',
           title: '無法取消追蹤，請稍後再試'
         })
       }

@@ -90,7 +90,7 @@ export default {
       } catch (error) {
         this.isLoading = false
         Toast.fire({
-          type: 'error',
+          icon: 'error',
           title: '無法取得會員資料，請稍後再試'
         })
       }
@@ -119,7 +119,7 @@ export default {
         })
       } catch (error) {
         Toast.fire({
-          type: 'error',
+          icon: 'error',
           title: '無法更新會員角色，請稍後再試'
         })
       }

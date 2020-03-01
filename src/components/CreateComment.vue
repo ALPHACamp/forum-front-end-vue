@@ -48,7 +48,7 @@ export default {
       try {
         if (!this.text) {
           Toast.fire({
-            type: 'warning',
+            icon: 'warning',
             title: '您尚未填寫任何評論'
           })
           return
@@ -76,7 +76,7 @@ export default {
       } catch (error) {
         this.isProcessing = false
         Toast.fire({
-          type: 'error',
+          icon: 'error',
           title: '無法新增評論，請稍後再試'
         })
       }

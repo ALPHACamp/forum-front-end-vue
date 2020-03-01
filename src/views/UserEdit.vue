@@ -108,7 +108,7 @@ export default {
       // STEP 5: 避免漏填
       if (!this.name) {
         Toast.fire({
-          type: 'warning',
+          icon: 'warning',
           title: '您尚未填寫姓名'
         })
         return
@@ -135,7 +135,7 @@ export default {
       } catch (error) {
         this.isProcessing = false
         Toast.fire({
-          type: 'error',
+          icon: 'error',
           title: '無法更新使用者資料，請稍後再試'
         })
       }

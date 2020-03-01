@@ -98,7 +98,7 @@ export default {
       } catch (error) {
         this.isLoading = false
         Toast.fire({
-          type: 'error',
+          icon: 'error',
           title: '無法取得餐廳資料，請稍後再試'
         })
       }

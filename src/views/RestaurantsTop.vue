@@ -99,7 +99,7 @@ export default {
       } catch (error) {
         this.isLoading = false
         Toast.fire({
-          type: 'error',
+          icon: 'error',
           title: '無法取得熱門餐廳，請稍後再試'
         })
       }
@@ -129,7 +129,7 @@ export default {
           .sort((a, b) => b.FavoriteCount - a.FavoriteCount)
       } catch (error) {
         Toast.fire({
-          type: 'error',
+          icon: 'error',
           title: '無法將餐廳加入最愛，請稍後再試'
         })
       }
@@ -159,7 +159,7 @@ export default {
           .sort((a, b) => b.FavoriteCount - a.FavoriteCount)
       } catch (error) {
         Toast.fire({
-          type: 'error',
+          icon: 'error',
           title: '無法將餐廳從最愛移除，請稍後再試'
         })
       }

@@ -45,16 +45,7 @@
 </template>
 
 <script>
-const dummyUser = {
-  currentUser: {
-    id: 1,
-    name: '管理者',
-    email: 'root@example.com',
-    image: 'https://i.pravatar.cc/300',
-    isAdmin: true
-  },
-  isAuthenticated: true
-}
+import { mapState } from 'vuex'
 
 export default {
   data () {
@@ -65,13 +56,36 @@ export default {
       email: ''
     }
   },
+  computed: {
+    ...mapState(['currentUser'])
+  },
+  watch: {
+    currentUser (user) {
+      if (user.id === -1) return
+      const { id } = this.$route.params
+      this.setUser(id)
+    }
+  },
   created () {
-    this.fetchUser()
+    if (this.currentUser.id === -1) return
+    const { id } = this.$route.params
+    this.setUser(id)
+  },
+  beforeRouteUpdate (to, from, next) {
+    if (this.currentUser.id === -1) return
+    const { id } = to.params
+    this.setUser(id)
+    next()
   },
   methods: {
-    fetchUser () {
-      const { currentUser } = dummyUser
-      const { id, image, name, email } = currentUser
+    setUser (userId) {
+      const { id, image, name, email } = this.currentUser
+
+      if (id.toString() !== userId.toString()) {
+        this.$router.push({ name: 'not-found' })
+        return
+      }
+
       this.id = id
       this.name = name
       this.email = email

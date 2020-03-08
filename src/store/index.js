@@ -49,8 +49,11 @@ export default new Vuex.Store({
           image,
           isAdmin
         })
+
+        return true
       } catch (error) {
         console.error(error.message)
+        return false
       }
     }
   },

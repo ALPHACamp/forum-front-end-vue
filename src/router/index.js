@@ -110,8 +110,31 @@ const router = new VueRouter({
   routes
 })
 
-router.beforeEach((to, from, next) => {
-  store.dispatch('fetchCurrentUser')
+router.beforeEach(async (to, from, next) => {
+  // 從 localStorage 取出 token
+  const token = localStorage.getItem('token')
+
+  let isAuthenticated = false
+
+  // 有 token 的情況下，才向後端驗證
+  if (token) {
+    isAuthenticated = await store.dispatch('fetchCurrentUser')
+  }
+
+  const pathsWithoutAuthentication = ['sign-in', 'sign-up']
+
+  // 如果 token 無效，且要去除了登入和註冊以外的其他頁面，則轉址到登入頁
+  if (!isAuthenticated && !pathsWithoutAuthentication.includes(to.name)) {
+    next('/signin')
+    return
+  }
+
+  // 如果 token 有效，且要去登入和註冊頁，則轉址到餐廳論壇首頁
+  if (isAuthenticated && pathsWithoutAuthentication.includes(to.name)) {
+    next('/restaurants')
+    return
+  }
+
   next()
 })
 

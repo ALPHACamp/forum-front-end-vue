@@ -185,3 +185,12 @@ export default {
   }
 }
 </script>
+
+<style scoped>
+.col-lg-8 p,
+.contact-info-wrap li,
+.contact-info-wrap strong {
+  font-family: serif;
+  font-size: 17px;
+}
+</style>

@@ -113,11 +113,12 @@ const router = new VueRouter({
 router.beforeEach(async (to, from, next) => {
   // 從 localStorage 取出 token
   const token = localStorage.getItem('token')
+  const tokenInStore = store.state.token
 
-  let isAuthenticated = false
+  let isAuthenticated = store.state.isAuthenticated
 
   // 有 token 的情況下，才向後端驗證
-  if (token) {
+  if (token && token !== tokenInStore) {
     isAuthenticated = await store.dispatch('fetchCurrentUser')
   }
 

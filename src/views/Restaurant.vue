@@ -73,10 +73,6 @@ export default {
         this.isLoading = true
         const { data } = await restaurantAPI.getRestaurant({ restaurantId })
 
-        if (data.status === 'error') {
-          throw new Error(data.message)
-        }
-
         const { restaurant, isFavorited, isLiked } = data
         const {
           id,

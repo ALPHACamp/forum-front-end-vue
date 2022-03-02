@@ -1,7 +1,14 @@
 <template>
   <div class="container py-5">
     <Spinner v-if="isLoading" />
-
+    <!--
+      若我們想要Spinner組件中loading效果呈現在Restaurant.vue外層(例如:body)，這邊就可以套用vue3的
+      Teleport組件，讓想要渲染得組前呈現在指定的html標籤下，例如:
+      <teleport to="body">
+        <Spinner v-if="isLoading" />
+      </teleport>
+      參考:https://v3.cn.vuejs.org/guide/teleport.html#%E4%B8%8E-vue-components-%E4%B8%80%E8%B5%B7%E4%BD%BF%E7%94%A8
+      -->
     <template v-else>
       <!-- 餐廳資訊頁 RestaurantDetail -->
       <RestaurantDetail :initial-restaurant="restaurant" />

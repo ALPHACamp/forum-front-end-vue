@@ -1,7 +1,10 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 import usersAPI from './../apis/users'
-
+/* 
+  vuex v3 更新到 v4 ，可省略Vue.use(因為可直接export，再透過已實例化的createApp.use載入)
+  主要是引用方式從原本 Vuex 改成 createStore。
+*/
 Vue.use(Vuex)
 
 export default new Vuex.Store({

@@ -29,7 +29,7 @@ export default {
         this.isProcessing = true
         const { data } = await adminAPI.restaurants.create({ formData })
 
-        if (data.status !== 'success') {
+        if (data.status === 'success') {
           throw new Error(data.message)
         }
 

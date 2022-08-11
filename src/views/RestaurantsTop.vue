@@ -115,7 +115,7 @@ export default {
       try {
         const { data } = await usersAPI.addFavorite({ restaurantId })
 
-        if (data.status !== 'success') {
+        if (data.status === 'error') {
           throw new Error(data.message)
         }
 
@@ -142,7 +142,7 @@ export default {
       try {
         const { data } = await usersAPI.deleteFavorite({ restaurantId })
 
-        if (data.status !== 'success') {
+        if (data.status === 'error') {
           throw new Error(data.message)
         }
 

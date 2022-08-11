@@ -86,7 +86,7 @@ export default {
         this.isProcessing = true
         const { data } = await adminAPI.restaurants.update({ restaurantId: this.restaurant.id, formData })
 
-        if (data.status !== 'success') {
+        if (data.status === 'error') {
           throw new Error(data.message)
         }
 

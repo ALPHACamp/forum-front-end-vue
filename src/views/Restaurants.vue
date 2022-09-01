@@ -74,10 +74,13 @@ export default {
     async fetchRestaurants ({ queryPage, queryCategoryId }) {
       try {
         this.isLoading = true
-        const response = await restaurantsAPI.getRestaurants({
+        const { data } = await restaurantsAPI.getRestaurants({
           page: queryPage,
           categoryId: queryCategoryId
         })
+        if (data.status === 'error') {
+          throw new Error(data.message)
+        }
 
         const {
           restaurants,
@@ -87,7 +90,7 @@ export default {
           totalPage,
           prev,
           next
-        } = response.data
+        } = data
 
         this.restaurants = restaurants
         this.categories = categories

@@ -86,12 +86,10 @@ export default {
 
         this.isProcessing = true
 
-        const response = await authorizationAPI.signIn({
+        const { data } = await authorizationAPI.signIn({
           email: this.email,
           password: this.password
         })
-
-        const { data } = response
 
         if (data.status === 'error') {
           throw new Error(data.message)

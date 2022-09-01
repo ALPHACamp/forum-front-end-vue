@@ -54,6 +54,9 @@ export default {
       try {
         this.isLoading = true
         const { data } = await restaurantsAPI.getFeeds()
+        if (data.status === 'error') {
+          throw new Error(data.message)
+        }
         const { restaurants, comments } = data
 
         this.restaurants = restaurants
